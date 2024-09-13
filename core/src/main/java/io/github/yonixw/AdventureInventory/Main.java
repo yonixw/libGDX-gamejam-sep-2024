@@ -2,6 +2,7 @@ package io.github.yonixw.AdventureInventory;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -34,6 +35,33 @@ public class Main extends ApplicationAdapter {
         batch.draw(image, 0 + x, 210);
         batch.end();
 
+        if (Gdx.input.isTouched()) {
+            System.err.println("Touched :O");
+
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+                // Log the click event
+                Gdx.app.log("Mouse Click", "Left button clicked at (" + Gdx.input.getX() + ", " + Gdx.input.getY() + ")");
+            }
+            if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
+                // Log the click event
+                Gdx.app.log("Mouse Click", "Right button clicked at (" + Gdx.input.getX() + ", " + Gdx.input.getY() + ")");
+            }
+        }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        // Handle screen resizing if needed.
+    }
+
+    @Override
+    public void pause() {
+        // Handle game pause if needed.
+    }
+
+    @Override
+    public void resume() {
+        // Handle game resume if needed.
     }
 
     @Override

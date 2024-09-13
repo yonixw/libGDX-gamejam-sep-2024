@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/29695796/managing-scene2d-libgdx
