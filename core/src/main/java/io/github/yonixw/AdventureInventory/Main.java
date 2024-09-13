@@ -25,6 +25,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
+
         int w = Gdx.graphics.getWidth();
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
