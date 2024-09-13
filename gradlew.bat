@@ -16,6 +16,8 @@
 @rem SPDX-License-Identifier: Apache-2.0
 @rem
 
+SET JAVA_HOME=E:\2024_E\JAVA\openlogic-openjdk-jre-21.0.4+7-windows-x64
+
 @if "%DEBUG%"=="" @echo off
 @rem ##########################################################################
 @rem
