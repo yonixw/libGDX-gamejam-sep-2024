@@ -4,7 +4,11 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -26,6 +30,8 @@ public class Main extends InputAdapter implements ApplicationListener {
     private TextureRegion[][] systemRegions; // [Y][X]
     private Stage stage;
 
+    BitmapFont font;
+
     @Override
     public void create() {
         systemTexture = new Texture("TileSet1.png");
@@ -37,6 +43,12 @@ public class Main extends InputAdapter implements ApplicationListener {
         curser.scaleBy(3);
         stage.addActor(curser);
 
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/gazzarelli.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 12;
+        font = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose(); // don't forget to dispose to avoid memory leaks!
+
     }
 
     @Override
@@ -47,6 +59,14 @@ public class Main extends InputAdapter implements ApplicationListener {
         ScreenUtils.clear(0.7f, 0.7f, 1.0f, 1);
         stage.act(delta);
         stage.draw();
+
+        SpriteBatch batch = new SpriteBatch();
+
+        batch.begin();
+        //font.getData().setScale(.2f);
+        Vector2 xy = stage.getViewport().unproject(new Vector2(100, 100));
+        font.draw(batch, "hello", xy.x, xy.y);
+        batch.end();
     }
 
     @Override
