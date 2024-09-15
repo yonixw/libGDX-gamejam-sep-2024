@@ -22,8 +22,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class Main extends InputAdapter implements ApplicationListener {
 
-    private Texture systemTexture = null;
-    private TextureRegion[][] systemRegions = null; // [Y][X]
+    private Texture systemTexture;
+    private TextureRegion[][] systemRegions; // [Y][X]
     private Stage stage;
 
     @Override
@@ -42,6 +42,7 @@ public class Main extends InputAdapter implements ApplicationListener {
     @Override
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
+
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ScreenUtils.clear(0.7f, 0.7f, 1.0f, 1);
         stage.act(delta);
@@ -61,10 +62,11 @@ public class Main extends InputAdapter implements ApplicationListener {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-        Gdx.app.log("TAG", String.format("{0} {1}", width, height));
+        Gdx.app.log("TAG", width + "," + height);
     }
 
     @Override
     public void pause() {
     }
+
 }
