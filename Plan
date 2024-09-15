@@ -1,0 +1,97 @@
+* The 4 Elements (Fire, Water, Earth, Air)
+* The truth can only be learned by marching forward
+    The Problem
+            Packer wants the very rare dragon shard
+                VS
+            Group wants money
+    The Truth: 
+            Hard decision a head, with hard choises, money OR friendship
+                1) Sometimes being nice won't help you (if you pass on loot)
+                     Gave high tips, didn't get plant
+                        BUT team has hard problems
+                2) Sometimes you will be around shit pupils even if talented
+                    Gave high tips, didn't get plant
+                        Team were rich anyway
+                3) Nice pupil do exist
+                        Packer gets shard from dragon only
+                        3.5) Other cases: "Sometimes your goals align"
+                4) Money will require other sacrifices 
+                    (like other personal belongings)
+                    You need to keep at least one of each team member so they won't quit
+                    
+                    
+Mechanics:
+    * Teams of 3 + Packer
+    * You tell them what monster
+    * Random type and lever
+    * They answer what needed, for it to be easy(90%),med(20%),hard(5%)
+    
+    * If you lose, then lost ingridients
+        * 3 turns with missed attacke ( def >> attack) = Flee for non agro monsters
+    * Win: 
+        Money (%level)
+        Blobs (100 shard-> To beat dragon)
+        Junk that will be affected by blob with Money value
+        Weapon (Monter Def +-
+    
+    * Blobs affect adjacent cells
+        * Fire burns papers (maps)
+        * Water diminish Fire
+        * Air + Fire bursts to air direction
+        * Earth + Water ruins both
+        
+        Safe: {Water, Air}, {Air, Earth} {Earth, Fire}
+        
+        Fire Water Earth Air
+Fire    1	0	1	0
+Water   1	1	0	1
+Earth   1	0	1	1
+Air     0	1	1	1
+
+        
+    * Blob affect weapon (stays until weapon break?)
+        
+    * Chat of events?
+        * Fight Monster Y
+        * Need X for Monster Y
+        * Monster Y Defeated/Escaped
+        * Picked X
+        
+    Teams
+        {Type [Magic, Fighter, Brute, Range], Attack, Defense}[]
+            Lvl 1-4 (10-20% buffs)
+            Element is by blob
+        
+    Monster 
+        Needs
+            Teams
+                Type
+            Attack 50% (1/2 attack), 90% (9/10 attack) etc.
+            Defense 
+            
+            Weakness Element[]
+            Resistence Element[]
+            Element
+            
+            Loot:
+                Money range %
+                Items %:
+                    Element blob
+                    Other junks 
+                
+                
+    Random stats, and "Pokedex" like wiki?
+                
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
