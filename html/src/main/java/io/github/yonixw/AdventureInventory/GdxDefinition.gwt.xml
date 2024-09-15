@@ -29,7 +29,7 @@
   <inherits name="com.kotcrab.vis.vis-ui" />
   <inherits name="com.strongjoshua.console" />
   <inherits name="de.golfgl.gdx.controllers.controller_scene2d" />
-  <inherits name="dev.lyze.flexbox" />
+  <!-- <inherits name="dev.lyze.flexbox" /> -->
   <inherits name="formic" />
   <inherits name="guacamole_gdx_gwt" />
   <inherits name="io.github.yonixw.AdventureInventory.Main" />
