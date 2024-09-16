@@ -16,8 +16,11 @@
 @rem SPDX-License-Identifier: Apache-2.0
 @rem
 
-@rem $ ./gradlew -q :tasks --all
-@rem lwjgl3:run --debug-jvm
+@rem $ ./gradlew 
+@rem lwjgl3:run 
+@rem -q :tasks --all (print all possible tasks)
+@rem -t  - watch files (continues)
+@rem --debug-jvm (debug port for vscode)
 SET JAVA_HOME=E:\2024_E\JAVA\openlogic-openjdk-jre-21.0.4+7-windows-x64
 
 @if "%DEBUG%"=="" @echo off
