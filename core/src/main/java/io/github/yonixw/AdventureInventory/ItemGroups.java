@@ -1,8 +1,8 @@
 package io.github.yonixw.AdventureInventory;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class ItemGroups extends Group {
@@ -31,28 +31,64 @@ public class ItemGroups extends Group {
     protected void drawChildren(Batch batch, float parentAlpha) {
         super.drawChildren(batch, parentAlpha);
 
+        Color color = getColor();
+        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+
         float _x = getX();
         float _y = getY();
-        float _scaleX = getScaleX();
-        float _scaleY = getScaleY();
+        float _scale = Math.max(getScaleX(), getScaleY());
+        float _size = PIXELS * _scale;
 
         // top-left corner
-        batch.draw(myGroupTx[0], PIXELS, PIXELS,
-                new Affine2().translate(_x, _y).scale(_scaleX, _scaleY));
+        myGroupTx[0].flip(false, false);
+        batch.draw(myGroupTx[0], _x, _y, _size, _size);
+        myGroupTx[0].flip(false, false);
         // top-right corner
-        batch.draw(myGroupTx[0], PIXELS, PIXELS,
-                new Affine2().translate(_x + PIXELS * _w * _scaleX, _y).scale(-1 * _scaleX, _scaleY));
+        myGroupTx[0].flip(true, false);
+        batch.draw(myGroupTx[0], _x + _size * (_w + 1), _y, _size, _size);
+        myGroupTx[0].flip(true, false);
+        // bottom-left corner
+        myGroupTx[0].flip(false, true);
+        batch.draw(myGroupTx[0], _x, _y - _size * (_h + 1), _size, _size);
+        myGroupTx[0].flip(false, true);
+        // bottom-right corner
+        myGroupTx[0].flip(true, true);
+        batch.draw(myGroupTx[0], _x + _size * (_w + 1), _y - _size * (_h + 1), _size, _size);
+        myGroupTx[0].flip(true, true);
+
         for (int i = 0; i < _w; i++) {
             // Tops
-            //batch.draw(myGroupTx[1], PIXELS, PIXELS,
-            //        new Affine2().translate(_x + PIXELS * i * _scaleX, _y).scale(_scaleX, _scaleY));
+            myGroupTx[1].flip(false, false);
+            batch.draw(myGroupTx[1], _x + _size * (i + 1), _y, _size, _size);
+            myGroupTx[1].flip(false, false);
         }
-        // bottom-left corner
-        batch.draw(myGroupTx[0], PIXELS, PIXELS,
-                new Affine2().translate(_x, _y - PIXELS * _w * _scaleY).scale(_scaleX, -1 * _scaleY));
-        // bottom-right corner
-        batch.draw(myGroupTx[0], PIXELS, PIXELS,
-                new Affine2().translate(_x + PIXELS * _w * _scaleX, _y - PIXELS * _w * _scaleY).scale(-1 * _scaleX, -1 * _scaleY));
+
+        for (int i = 0; i < _w; i++) {
+            // Bottoms
+            myGroupTx[1].flip(false, true);
+            batch.draw(myGroupTx[1], _x + _size * (i + 1), _y - _size * (_h + 1), _size, _size);
+            myGroupTx[1].flip(false, true);
+        }
+
+        for (int i = 0; i < _h; i++) {
+            // Lefts
+            myGroupTx[2].flip(false, false);
+            batch.draw(myGroupTx[2], _x, _y - _size * (i + 1), _size, _size);
+            myGroupTx[2].flip(false, false);
+        }
+
+        for (int i = 0; i < _h; i++) {
+            // rights
+            myGroupTx[2].flip(true, false);
+            batch.draw(myGroupTx[2], _x + _size * (_w + 1), _y - _size * (i + 1), _size, _size);
+            myGroupTx[2].flip(true, false);
+        }
+
+        for (int wx = 0; wx < _w; wx++) {
+            for (int hy = 0; hy < _h; hy++) {
+                addActor(new ItemBox(myGroupTx[3], _size * (wx + 1), _size * (hy + 1)));
+            }
+        }
 
     }
 }
