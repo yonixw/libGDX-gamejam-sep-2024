@@ -36,6 +36,8 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     public static final float WIDTH = 720 * 16 / 9, HEIGHT = 720; //or any other values you need
 
+    public static Actor Cursor;
+
     @Override
     public void create() {
         systemTexture = new Texture("InvTileSet.png");
@@ -57,9 +59,9 @@ public class Main extends InputAdapter implements ApplicationListener {
             stage.addActor(MyItems);
         }
 
-        Actor curser = new Cursor(systemRegions, fontGroundhog);
-        curser.scaleBy(2);
-        stage.addActor(curser);
+        Cursor = new Cursor(systemRegions, fontGroundhog);
+        Cursor.scaleBy(2);
+        stage.addActor(Cursor);
 
         Gdx.graphics.setSystemCursor(SystemCursor.None);
     }

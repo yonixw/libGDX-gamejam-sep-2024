@@ -62,11 +62,6 @@ public class ItemBox extends Actor implements IClickable {
     }
 
     @Override
-    public void clicked(InputEvent event, float x, float y) {
-        Gdx.app.log("CLICK", getParent().getName() + "->" + getName());
-    }
-
-    @Override
     public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
         Gdx.app.log("DOWN", getParent().getName() + "->" + getName());
     }

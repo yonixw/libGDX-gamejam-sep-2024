@@ -2,9 +2,9 @@ package io.github.yonixw.AdventureInventory.Utils;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class ClickableActor extends ClickListener {
+public class ClickableActor extends InputListener {
 
     public interface IClickable {
 
@@ -12,8 +12,7 @@ public class ClickableActor extends ClickListener {
 
         void exit(InputEvent event, float x, float y, int pointer, Actor toActor);
 
-        void clicked(InputEvent event, float x, float y);
-
+        // void clicked(InputEvent event, float x, float y);
         void touchDown(InputEvent event, float x, float y, int pointer, int button);
 
         void touchUp(InputEvent event, float x, float y, int pointer, int button);
@@ -39,12 +38,11 @@ public class ClickableActor extends ClickListener {
         _parent.exit(event, x, y, pointer, toActor);
     }
 
-    @Override
-    public void clicked(InputEvent event, float x, float y) {
-        super.clicked(event, x, y);
-        _parent.clicked(event, x, y);
-    }
-
+    //@Override
+    //public void clicked(InputEvent event, float x, float y) {
+    //    super.clicked(event, x, y);
+    //    _parent.clicked(event, x, y);
+    //}
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         boolean result = super.touchDown(event, x, y, pointer, button);
