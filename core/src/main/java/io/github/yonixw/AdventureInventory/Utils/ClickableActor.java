@@ -12,8 +12,8 @@ public class ClickableActor extends InputListener {
 
         void exit(InputEvent event, float x, float y, int pointer, Actor toActor);
 
-        // void clicked(InputEvent event, float x, float y);
-        void touchDown(InputEvent event, float x, float y, int pointer, int button);
+        // True to contiue to record touchUP
+        boolean touchDown(InputEvent event, float x, float y, int pointer, int button);
 
         void touchUp(InputEvent event, float x, float y, int pointer, int button);
 
@@ -45,9 +45,9 @@ public class ClickableActor extends InputListener {
     //}
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        boolean result = super.touchDown(event, x, y, pointer, button);
-        _parent.touchDown(event, x, y, pointer, button);
-        return result;
+        super.touchDown(event, x, y, pointer, button);
+        return _parent.touchDown(event, x, y, pointer, button);
+
     }
 
     @Override

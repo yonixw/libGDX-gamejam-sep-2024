@@ -52,7 +52,6 @@ public class ItemGroups extends Group {
 
     @Override
     protected void drawChildren(Batch batch, float parentAlpha) {
-        super.drawChildren(batch, parentAlpha);
 
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
@@ -114,5 +113,7 @@ public class ItemGroups extends Group {
                 child.setPosition(_x + _size * (wx + 1), _y - _size * (hy + 1));
             }
         }
+
+        super.drawChildren(batch, parentAlpha);
     }
 }

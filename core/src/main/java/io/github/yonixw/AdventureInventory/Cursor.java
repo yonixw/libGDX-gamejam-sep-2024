@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Align;
 
 public class Cursor extends Actor {
@@ -16,6 +17,9 @@ public class Cursor extends Actor {
     private TextureRegion curserClosed = null;
     private BitmapFont _font;
 
+    public Loot dragLoot;
+    public ItemBox lastEnterBox;
+
     public Cursor(TextureRegion[][] regions, BitmapFont font) {
         curserOpen = regions[4][5];
         curserClosed = regions[4][4];
@@ -23,6 +27,8 @@ public class Cursor extends Actor {
         setBounds(curserOpen.getRegionX(), curserOpen.getRegionY(),
                 curserOpen.getRegionWidth(), curserOpen.getRegionHeight());
         setOrigin(Align.center);
+        setTouchable(Touchable.disabled);
+
     }
 
     @Override
@@ -33,10 +39,13 @@ public class Cursor extends Actor {
         boolean mouseLeftClick = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 
         // Gdx.graphics.getHeight()
+        setX(mousePos.x);
+        setY(mousePos.y);
+
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
         batch.draw(mouseLeftClick ? curserClosed : curserOpen,
-                mousePos.x, mousePos.y,
+                getX(), getY(),
                 getOriginX(), getOriginY(),
                 getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());

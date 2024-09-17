@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -36,7 +35,7 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     public static final float WIDTH = 720 * 16 / 9, HEIGHT = 720; //or any other values you need
 
-    public static Actor Cursor;
+    public static Cursor Cursor;
 
     @Override
     public void create() {
@@ -59,8 +58,16 @@ public class Main extends InputAdapter implements ApplicationListener {
             stage.addActor(MyItems);
         }
 
+        ItemBox follow = ((ItemBox) ((Group) stage.getRoot().getChild(0)).getChild(0));
+        Loot l = new Loot(systemRegions[12][4]);
+        l.setName("Loot1");
+        Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+        l.setScale(2f, 2f);
+        l.follow(follow);
+        follow.myLoot = l;
+
         Cursor = new Cursor(systemRegions, fontGroundhog);
-        Cursor.scaleBy(2);
+        Cursor.setScale(4f, 4f);
         stage.addActor(Cursor);
 
         Gdx.graphics.setSystemCursor(SystemCursor.None);
