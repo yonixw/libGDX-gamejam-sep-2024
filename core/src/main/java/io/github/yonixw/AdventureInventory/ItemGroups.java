@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class ItemGroups extends Group {
@@ -42,6 +43,7 @@ public class ItemGroups extends Group {
         for (int wx = 0; wx < _w; wx++) {
             for (int hy = 0; hy < _h; hy++) {
                 Actor ax = new ItemBox(myGroupTx[3], myElement);
+                ax.setName("x_" + wx + "_y_" + hy);
                 myChild.add(ax);
                 addActor(ax);
             }

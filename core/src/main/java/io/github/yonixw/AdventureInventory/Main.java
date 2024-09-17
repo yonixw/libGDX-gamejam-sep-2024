@@ -51,6 +51,7 @@ public class Main extends InputAdapter implements ApplicationListener {
             int h = 1 + (int) Math.floor(Math.random() * 5);
             int y = (int) Math.floor(Math.random() * 100) + 100;
             Group MyItems = new ItemGroups(systemRegions, w, h, 1 + 2 * i);
+            MyItems.setName("ItemGroup_" + i);
             MyItems.setPosition(0 + i * 75, y);
             MyItems.setScale(2f, 2f);
             stage.addActor(MyItems);

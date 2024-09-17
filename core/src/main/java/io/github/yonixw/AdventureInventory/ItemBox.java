@@ -1,12 +1,17 @@
 package io.github.yonixw.AdventureInventory;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.utils.Align;
 
-public class ItemBox extends Actor {
+import io.github.yonixw.AdventureInventory.Utils.ClickableActor;
+import io.github.yonixw.AdventureInventory.Utils.ClickableActor.IClickable;
+
+public class ItemBox extends Actor implements IClickable {
 
     private TextureRegion _Tx;
     private TextureRegion _Elm;
@@ -18,6 +23,8 @@ public class ItemBox extends Actor {
         setBounds(_Tx.getRegionX(), _Tx.getRegionY(),
                 _Tx.getRegionWidth(), _Tx.getRegionHeight());
         setOrigin(Align.bottomLeft);
+
+        addListener(new ClickableActor(this));
     }
 
     @Override
@@ -42,6 +49,36 @@ public class ItemBox extends Actor {
                     getWidth(), getHeight(),
                     getScaleX(), getScaleY(), getRotation());
         }
+    }
+
+    @Override
+    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+        Gdx.app.log("ENTER", getParent().getName() + "->" + getName());
+    }
+
+    @Override
+    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+        Gdx.app.log("EXIT", getParent().getName() + "->" + getName());
+    }
+
+    @Override
+    public void clicked(InputEvent event, float x, float y) {
+        Gdx.app.log("CLICK", getParent().getName() + "->" + getName());
+    }
+
+    @Override
+    public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        Gdx.app.log("DOWN", getParent().getName() + "->" + getName());
+    }
+
+    @Override
+    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        Gdx.app.log("UP", getParent().getName() + "->" + getName());
+    }
+
+    @Override
+    public void touchDragged(InputEvent event, float x, float y, int pointer) {
+        //Gdx.app.log("DRAG", getParent().getName() + "->" + getName());
     }
 
 }
