@@ -107,9 +107,9 @@ public class ItemGroups extends Group {
 
         for (int wx = 0; wx < _w; wx++) {
             for (int hy = 0; hy < _h; hy++) {
-                Actor child = myChild.get(wx * _w + hy);
+                Actor child = myChild.get(wx * _h + hy);
                 child.setScale(_scale);
-                child.setPosition(wx * (_size + 1), _y - (hy * _size + 1));
+                child.setPosition(_x + _size * (wx + 1), _y - _size * (hy + 1));
             }
         }
     }
