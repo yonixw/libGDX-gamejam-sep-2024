@@ -38,7 +38,7 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     @Override
     public void create() {
-        systemTexture = new Texture("TileSet1.png");
+        systemTexture = new Texture("InvTileSet.png");
         systemRegions = TextureRegion.split(systemTexture, 16, 16);
         fontGroundhog = getFont("fonts/bitmap/groundhog.ttf", 25, Color.WHITE);
         //fontDino = getFont("fonts/bitmap/dinotype2.ttf", 25, Color.WHITE);
@@ -46,31 +46,12 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        Actor txt1 = new MyText(fontGroundhog, "Test [RED]Test []\nAnother Line");
-        txt1.setPosition(0, 100);
-        Actor txt2 = new MyText(fontGroundhog, "Test Test 2");
-        txt2.setPosition(0, 200);
+        Group FireItems = new ItemGroups(systemRegions, 1, 1, 1);
+        FireItems.setPosition(100, 100);
+        FireItems.setScale(2, 2);
+        stage.addActor(FireItems);
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                sb.append(Character.toString(i * 16 + j));
-            }
-            sb.append('\n');
-        }
-
-        Actor txt3 = new MyText(fontGroundhog, sb.toString());
-        txt3.setPosition(0, 300);
-
-        Group g1 = new Group();
-        //g1.addActor(txt1);
-        //g1.addActor(txt2);
-        g1.addActor(txt3);
-        g1.setPosition(100, 0);
-
-        stage.addActor(g1);
-
-        Actor curser = new Cursor(systemRegions);
+        Actor curser = new Cursor(systemRegions, fontGroundhog);
         curser.scaleBy(3);
         stage.addActor(curser);
 

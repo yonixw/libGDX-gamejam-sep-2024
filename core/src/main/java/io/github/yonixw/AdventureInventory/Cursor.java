@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,10 +14,12 @@ public class Cursor extends Actor {
 
     private TextureRegion curserOpen = null;
     private TextureRegion curserClosed = null;
+    private BitmapFont _font;
 
-    public Cursor(TextureRegion[][] regions) {
-        curserOpen = regions[6][4];
-        curserClosed = regions[6][3];
+    public Cursor(TextureRegion[][] regions, BitmapFont font) {
+        curserOpen = regions[4][5];
+        curserClosed = regions[4][4];
+        _font = font;
         setBounds(curserOpen.getRegionX(), curserOpen.getRegionY(),
                 curserOpen.getRegionWidth(), curserOpen.getRegionHeight());
         setOrigin(Align.center);
@@ -37,5 +40,7 @@ public class Cursor extends Actor {
                 getOriginX(), getOriginY(),
                 getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());
+
+        _font.draw(batch, Math.round(mousePos.x) + "," + Math.round(mousePos.y), mousePos.x, mousePos.y - 20);
     }
 }
