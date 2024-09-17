@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,10 +31,8 @@ public class Main extends InputAdapter implements ApplicationListener {
     private TextureRegion[][] systemRegions; // [Y][X]
     private Stage stage;
 
-    final private Color _black = Colors.get("BLACK");
-    final private Color _white = Colors.get("WHITE");
-
-    BitmapFont fontEBGaramondSemiBold;
+    BitmapFont fontGroundhog;
+    BitmapFont fontDino;
 
     public static final float WIDTH = 720 * 16 / 9, HEIGHT = 720; //or any other values you need
 
@@ -43,19 +40,32 @@ public class Main extends InputAdapter implements ApplicationListener {
     public void create() {
         systemTexture = new Texture("TileSet1.png");
         systemRegions = TextureRegion.split(systemTexture, 16, 16);
-        fontEBGaramondSemiBold = getFont("fonts/EBGaramond-SemiBold.ttf", 25, _white);
+        fontGroundhog = getFont("fonts/bitmap/groundhog.ttf", 25, Color.WHITE);
+        //fontDino = getFont("fonts/bitmap/dinotype2.ttf", 25, Color.WHITE);
 
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        Actor txt1 = new MyText(fontEBGaramondSemiBold, "Test Test");
+        Actor txt1 = new MyText(fontGroundhog, "Test [RED]Test []\nAnother Line");
         txt1.setPosition(0, 100);
-        Actor txt2 = new MyText(fontEBGaramondSemiBold, "Test Test 2");
+        Actor txt2 = new MyText(fontGroundhog, "Test Test 2");
         txt2.setPosition(0, 200);
 
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                sb.append(Character.toString(i * 16 + j));
+            }
+            sb.append('\n');
+        }
+
+        Actor txt3 = new MyText(fontGroundhog, sb.toString());
+        txt3.setPosition(0, 300);
+
         Group g1 = new Group();
-        g1.addActor(txt1);
-        g1.addActor(txt2);
+        //g1.addActor(txt1);
+        //g1.addActor(txt2);
+        g1.addActor(txt3);
         g1.setPosition(100, 0);
 
         stage.addActor(g1);
@@ -73,7 +83,7 @@ public class Main extends InputAdapter implements ApplicationListener {
 
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //.setProjectionMatrix(stage.getViewport().getCamera().combined);
-        ScreenUtils.clear(0f, 0f, 0f, 1);
+        ScreenUtils.clear(Color.BLACK);
         stage.act(delta);
         stage.draw();
 
@@ -86,7 +96,14 @@ public class Main extends InputAdapter implements ApplicationListener {
         parameter.size = Size;
         parameter.color = c;
         font = generator.generateFont(parameter); // font size 12 pixels
+        font.getData().markupEnabled = true;
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
+        return font;
+    }
+
+    public BitmapFont getNormalFont(String Path, int Size, Color c) {
+        BitmapFont font = new BitmapFont(Gdx.files.internal(Path));
+        font.getData().markupEnabled = true;
         return font;
     }
 

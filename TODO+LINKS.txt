@@ -1,12 +1,17 @@
 https://stackoverflow.com/questions/29695796/managing-scene2d-libgdx
-html5 Canvas aspect ratio lock
+[v] html5 Canvas aspect ratio lock
+
+colurs for bitmap
+fonts dialod
+
+Inn background
 
 hit 2d box (closest?)
 change parent/gorup
 
-sliding buy top row
+Loot falling to fill empty places
 fill boxes on each request
     you can decline request
 tip after each day 
-you cam request monster x
+
 
