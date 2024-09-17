@@ -26,7 +26,7 @@ public class Cursor extends Actor {
         _font = font;
         setBounds(curserOpen.getRegionX(), curserOpen.getRegionY(),
                 curserOpen.getRegionWidth(), curserOpen.getRegionHeight());
-        setOrigin(Align.center);
+        setOrigin(Align.topRight);
         setTouchable(Touchable.disabled);
 
     }
