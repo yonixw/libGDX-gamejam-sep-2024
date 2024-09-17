@@ -9,10 +9,12 @@ import com.badlogic.gdx.utils.Align;
 public class ItemBox extends Actor {
 
     private TextureRegion _Tx;
+    private TextureRegion _Elm;
 
-    public ItemBox(TextureRegion Tx, float x, float y) {
+    public ItemBox(TextureRegion Tx, TextureRegion element) {
         _Tx = Tx;
-        setPosition(x, y);
+        _Elm = element;
+
         setBounds(_Tx.getRegionX(), _Tx.getRegionY(),
                 _Tx.getRegionWidth(), _Tx.getRegionHeight());
         setOrigin(Align.bottomLeft);
@@ -21,8 +23,6 @@ public class ItemBox extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-
-        float scale = Math.max(getScaleX(), getScaleY());
 
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
@@ -33,6 +33,15 @@ public class ItemBox extends Actor {
                 getOriginX(), getOriginY(),
                 getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());
+
+        if (_Elm != null) {
+            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha * 0.5f);
+            batch.draw(_Elm,
+                    getX(), getY(),
+                    getOriginX(), getOriginY(),
+                    getWidth(), getHeight(),
+                    getScaleX(), getScaleY(), getRotation());
+        }
     }
 
 }

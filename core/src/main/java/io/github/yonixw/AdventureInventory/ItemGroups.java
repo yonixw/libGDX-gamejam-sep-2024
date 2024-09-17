@@ -1,14 +1,23 @@
 package io.github.yonixw.AdventureInventory;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class ItemGroups extends Group {
 
-    public TextureRegion[] myGroupTx;
+    TextureRegion[] myGroupTx;
+    TextureRegion myElement;
+
     private int _w, _h;
+
+    ArrayList<Actor> myChild = new ArrayList<Actor>();
 
     public final static int PIXELS = 16;
 
@@ -23,8 +32,20 @@ public class ItemGroups extends Group {
             sysTx[1 + contLine * 2][0 + contOffX * 2], // left-V
             sysTx[1 + contLine * 2][1 + contOffX * 2],}; // Main container
 
+        if (type / 2 < 4) {
+            myElement = sysTx[10][2 + (type / 2)];
+        }
+
         _w = w;
         _h = h;
+
+        for (int wx = 0; wx < _w; wx++) {
+            for (int hy = 0; hy < _h; hy++) {
+                Actor ax = new ItemBox(myGroupTx[3], myElement);
+                myChild.add(ax);
+                addActor(ax);
+            }
+        }
     }
 
     @Override
@@ -86,9 +107,10 @@ public class ItemGroups extends Group {
 
         for (int wx = 0; wx < _w; wx++) {
             for (int hy = 0; hy < _h; hy++) {
-                addActor(new ItemBox(myGroupTx[3], _size * (wx + 1), _size * (hy + 1)));
+                Actor child = myChild.get(wx * _w + hy);
+                child.setScale(_scale);
+                child.setPosition(wx * (_size + 1), _y - (hy * _size + 1));
             }
         }
-
     }
 }

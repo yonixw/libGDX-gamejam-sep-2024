@@ -46,10 +46,12 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        Group FireItems = new ItemGroups(systemRegions, 2, 3, 4);
-        FireItems.setPosition(0, 100);
-        FireItems.setScale(1, 1);
-        stage.addActor(FireItems);
+        for (int i = 0; i < 5; i++) {
+            Group MyItems = new ItemGroups(systemRegions, 2, 3, 1 + 2 * i);
+            MyItems.setPosition(0 + i * 75, 100);
+            MyItems.setScale(2f, 2f);
+            stage.addActor(MyItems);
+        }
 
         Actor curser = new Cursor(systemRegions, fontGroundhog);
         curser.scaleBy(2);
