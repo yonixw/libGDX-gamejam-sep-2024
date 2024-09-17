@@ -7,6 +7,7 @@ fonts dialod
 Inn background
 
 hit 2d box (closest?)
+    all hits, exit, enter
 change parent/gorup
 
 Loot falling to fill empty places

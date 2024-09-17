@@ -43,7 +43,7 @@ public class ItemGroups extends Group {
         for (int wx = 0; wx < _w; wx++) {
             for (int hy = 0; hy < _h; hy++) {
                 Actor ax = new ItemBox(myGroupTx[3], myElement);
-                ax.setName("x_" + wx + "_y_" + hy);
+                ax.setName("[" + hy + "," + wx + "]");
                 myChild.add(ax);
                 addActor(ax);
             }
