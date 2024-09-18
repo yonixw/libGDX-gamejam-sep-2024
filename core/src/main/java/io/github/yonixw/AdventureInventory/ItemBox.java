@@ -1,6 +1,5 @@
 package io.github.yonixw.AdventureInventory;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -69,7 +68,7 @@ public class ItemBox extends Actor implements IClickable {
 
     @Override
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-        Gdx.app.log("ENTER", getParent().getName() + "->" + getName());
+        //Gdx.app.log("ENTER", getParent().getName() + "->" + getName());
         Main.Cursor.lastEnterBox = this;
     }
 
@@ -80,7 +79,7 @@ public class ItemBox extends Actor implements IClickable {
 
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        Gdx.app.log("DOWN", getParent().getName() + "->" + getName());
+        //Gdx.app.log("DOWN", getParent().getName() + "->" + getName());
         if (myLoot != null) {
             Main.Cursor.dragLoot = myLoot;
             Main.Cursor.lastEnterBox = this;
@@ -98,7 +97,7 @@ public class ItemBox extends Actor implements IClickable {
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        Gdx.app.log("UP", getParent().getName() + "->" + getName());
+        //Gdx.app.log("UP", getParent().getName() + "->" + getName());
         if (Main.Cursor.dragLoot != null) {
             // Missed click
             myLoot = null;

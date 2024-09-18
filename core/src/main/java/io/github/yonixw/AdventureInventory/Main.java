@@ -29,8 +29,8 @@ public class Main extends InputAdapter implements ApplicationListener {
     private TextureRegion[][] systemRegions; // [Y][X]
     private Stage stage;
 
-    BitmapFont fontGroundhog;
-    BitmapFont fontDino;
+    public static BitmapFont fontGroundhog;
+    public static BitmapFont fontDino;
 
     public static final float WIDTH = 720 * 16 / 9, HEIGHT = 720; //or any other values you need
 
@@ -42,8 +42,8 @@ public class Main extends InputAdapter implements ApplicationListener {
         systemRegions = TextureRegion.split(systemTexture, 16, 16);
         //fontGroundhog = getFont("fonts/bitmap/groundhog.ttf", 25, Color.WHITE);
         //fontDino = getFont("fonts/bitmap/dinotype2.ttf", 25, Color.WHITE);
-        fontGroundhog = getNormalFont("fonts/bitmap/groundhog_bmf.fnt", 25, Color.WHITE);
-        fontDino = getNormalFont("fonts/bitmap/dinotype_bmf.fnt", 25, Color.WHITE);
+        fontGroundhog = getNormalFont("fonts/bitmap/groundhog_bmf.fnt", 1, Color.WHITE);
+        fontDino = getNormalFont("fonts/bitmap/dinotype_bmf.fnt", 0.5f, Color.BLUE);
 
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
@@ -62,10 +62,13 @@ public class Main extends InputAdapter implements ApplicationListener {
         ItemBox follow = ((ItemBox) ((Group) stage.getRoot().getChild(0)).getChild(0));
         Loot l = new Loot(systemRegions[12][4]);
         l.setName("Loot1");
-        Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+        //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
         l.setScale(2f, 2f);
         l.follow(follow);
         follow.myLoot = l;
+
+        MessageChat mc = new MessageChat(WIDTH, HEIGHT);
+        stage.addActor(mc);
 
         Cursor = new Cursor(systemRegions, fontGroundhog);
         Cursor.setScale(4f, 4f);
@@ -97,9 +100,11 @@ public class Main extends InputAdapter implements ApplicationListener {
     //    generator.dispose(); // don't forget to dispose to avoid memory leaks!
     //    return font;
     //}
-    public BitmapFont getNormalFont(String Path, int Size, Color c) {
+    public BitmapFont getNormalFont(String Path, float Scale, Color c) {
         BitmapFont font = new BitmapFont(Gdx.files.internal(Path));
         font.getData().markupEnabled = true;
+        font.getData().setScale(Scale, Scale);
+        font.setColor(c);
         return font;
     }
 
