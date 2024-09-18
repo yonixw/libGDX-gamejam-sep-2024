@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -84,20 +83,6 @@ public class Main extends InputAdapter implements ApplicationListener {
         ScreenUtils.clear(Color.BLACK);
         stage.act(delta);
         stage.draw();
-
-        SpriteBatch spb = new SpriteBatch();
-        spb.begin();
-        spb.setColor(Color.WHITE);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                sb.append(Character.toChars(i * 16 + j));
-            }
-            sb.append('\n');
-        }
-        fontDino.draw(spb, "[RED]" + sb.toString(), 100, 700);
-        spb.end();
-        spb.dispose();
 
     }
 

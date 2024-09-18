@@ -28,6 +28,13 @@ public class Loot extends Actor {
         _follow = a;
         _follow.getParent().addActor(this);
 
+        if (_follow != null && _follow.equals(Main.Cursor)) {
+            setOrigin(Align.center);
+        } else {
+            setOrigin(Align.bottomLeft);
+
+        }
+
     }
 
     @Override
