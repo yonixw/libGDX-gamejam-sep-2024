@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-//import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -44,7 +44,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         //fontGroundhog = getFont("fonts/bitmap/groundhog.ttf", 25, Color.WHITE);
         //fontDino = getFont("fonts/bitmap/dinotype2.ttf", 25, Color.WHITE);
         fontGroundhog = getNormalFont("fonts/bitmap/groundhog_bmf.fnt", 25, Color.WHITE);
-        
+        fontDino = getNormalFont("fonts/bitmap/dinotype_bmf.fnt", 25, Color.WHITE);
 
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
@@ -85,6 +85,20 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage.act(delta);
         stage.draw();
 
+        SpriteBatch spb = new SpriteBatch();
+        spb.begin();
+        spb.setColor(Color.WHITE);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                sb.append(Character.toChars(i * 16 + j));
+            }
+            sb.append('\n');
+        }
+        fontDino.draw(spb, "[RED]" + sb.toString(), 100, 700);
+        spb.end();
+        spb.dispose();
+
     }
 
     //public BitmapFont getFont(String Path, int Size, Color c) {
@@ -98,7 +112,6 @@ public class Main extends InputAdapter implements ApplicationListener {
     //    generator.dispose(); // don't forget to dispose to avoid memory leaks!
     //    return font;
     //}
-
     public BitmapFont getNormalFont(String Path, int Size, Color c) {
         BitmapFont font = new BitmapFont(Gdx.files.internal(Path));
         font.getData().markupEnabled = true;
