@@ -3,15 +3,15 @@ package io.github.yonixw.AdventureInventory;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-enum ItemType {
-    Any,
-    Earth,
-    Fire,
-    Water,
-    Air
-}
-
 public class AllItems {
+
+    public enum ItemType {
+        Any,
+        Earth,
+        Fire,
+        Water,
+        Air
+    }
 
     public class Item {
 
@@ -103,7 +103,7 @@ public class AllItems {
     public Item Gem_Gold = new Item() {
         {
             name = "Gold Gem";
-            row_col = new int[]{3, 4};
+            row_col = new int[]{4, 3};
 
             money = 10;
         }
@@ -111,7 +111,7 @@ public class AllItems {
     public Item Gem_Diamond = new Item() {
         {
             name = "Diamond Gem";
-            row_col = new int[]{3, 2};
+            row_col = new int[]{2, 3};
 
             money = 15;
         }
@@ -380,7 +380,7 @@ public class AllItems {
         };
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
-                if (row * 4 + col > _names.length) {
+                if (row * 4 + col >= _names.length) {
                     continue;
                 }
                 final int _row = row, _col = col;
@@ -397,8 +397,32 @@ public class AllItems {
         }
     }
 
+    public Item[] ALL_LOOT;
+
+    public void populateAllLoot() {
+        Item[][] allArrs = new Item[][]{
+            ALL_POTIONS, ALL_ARMORS, ALL_ATTACK, ALL_BLOBS, ALL_MONEY, GARBAGE_LOOTS, FOOD_LOOTS
+        };
+        int count = 0;
+        for (Item[] itmArr : allArrs) {
+            count += itmArr.length;
+        }
+
+        ALL_LOOT = new Item[count];
+        int i = 0;
+        for (Item[] itmArr : allArrs) {
+            for (Item itm : itmArr) {
+                ALL_LOOT[i] = itm;
+                i++;
+            }
+        }
+
+    }
+
     public AllItems() {
         populateFoods();
         populateGarbage();
+        populateAllLoot();
     }
+
 }

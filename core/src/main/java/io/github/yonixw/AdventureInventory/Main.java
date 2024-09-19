@@ -54,24 +54,67 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        for (int i = 0; i < 5; i++) {
-            int w = 1 + (int) Math.floor(Math.random() * 5);
-            int h = 1 + (int) Math.floor(Math.random() * 5);
-            int y = (int) Math.floor(Math.random() * 100) + 100;
-            Group MyItems = new ItemGroups(systemRegions, w, h, 1 + 2 * i);
-            MyItems.setName("ItemGroup_" + i);
-            MyItems.setPosition(0 + i * 75, y);
-            MyItems.setScale(2f, 2f);
-            stage.addActor(MyItems);
+        //for (int i = 0; i < 5; i++) {
+        //    int w = 1 + (int) Math.floor(Math.random() * 5);
+        //    int h = 1 + (int) Math.floor(Math.random() * 5);
+        //    int y = (int) Math.floor(Math.random() * 100) + 100;
+        //    Group MyItems = new ItemGroups(systemRegions, w, h, 1 + 2 * i);
+        //    MyItems.setName("ItemGroup_" + i);
+        //    MyItems.setPosition(0 + i * 75, y);
+        //    MyItems.setScale(2f, 2f);
+        //    stage.addActor(MyItems);
+        //}
+        double sqr = Math.ceil(Math.sqrt(ALL_ITEMS.ALL_LOOT.length));
+        Group MyItems = new ItemGroups(systemRegions, (int) sqr, (int) sqr + 1, 1);
+        MyItems.setName("ItemGroup_1");
+        MyItems.setScale(2f, 2f);
+        MyItems.setPosition(0, HEIGHT / 2 / 2);
+        stage.addActor(MyItems);
+
+        int i = 0;
+        for (AllItems.Item item : ALL_ITEMS.ALL_LOOT) {
+
+            ItemBox follow = (ItemBox) (MyItems.getChild(i));
+            Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+            l.setName(item.name);
+            //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+            l.setScale(2f, 2f);
+            l.follow(follow);
+
+            follow.myLoot = l;
+
+            i++;
         }
 
-        ItemBox follow = ((ItemBox) ((Group) stage.getRoot().getChild(0)).getChild(0));
-        Loot l = new Loot(systemRegions[12][4]);
-        l.setName("Loot1");
-        //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
-        l.setScale(2f, 2f);
-        l.follow(follow);
-        follow.myLoot = l;
+        for (int j = 0; j < 4; j++) {
+            AllItems.Item item = ALL_ITEMS.Attack_TwoHand_Sword_L3;
+            ItemBox follow = (ItemBox) (MyItems.getChild(i));
+            Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+            l.setName(item.name);
+            //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+            l.setScale(2f, 2f);
+            l.follow(follow);
+            l.myVariation = AllItems.ItemType.values()[1 + j];
+            follow.myLoot = l;
+
+            i++;
+
+        }
+
+        for (int j = 0; j < 4; j++) {
+            AllItems.Item item = ALL_ITEMS.Armor_Gold;
+            ItemBox follow = (ItemBox) (MyItems.getChild(i));
+            Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+            l.setName(item.name);
+            //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+            l.setScale(2f, 2f);
+            l.follow(follow);
+            l.myVariation = AllItems.ItemType.values()[1 + j];
+            follow.myLoot = l;
+
+            i++;
+
+        }
 
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
         stage.addActor(mc);

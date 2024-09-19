@@ -11,9 +11,12 @@ public class Loot extends Actor {
 
     TextureRegion _Tx;
     Actor _follow;
+    AllItems.Item _myItem;
+    AllItems.ItemType myVariation = AllItems.ItemType.Any;
 
-    public Loot(TextureRegion lootTexture) {
+    public Loot(TextureRegion lootTexture, AllItems.Item myItem) {
         _Tx = lootTexture;
+        _myItem = myItem;
         setBounds(_Tx.getRegionX(), _Tx.getRegionY(),
                 _Tx.getRegionWidth(), _Tx.getRegionHeight());
         setOrigin(Align.bottomLeft);
@@ -52,6 +55,24 @@ public class Loot extends Actor {
         super.draw(batch, parentAlpha);
 
         Color color = getColor();
+        if (myVariation != AllItems.ItemType.Any) {
+            switch (myVariation) {
+                case Air:
+                    color = Color.GRAY;
+                    break;
+                case Water:
+                    color = Color.CYAN;
+                    break;
+                case Earth:
+                    color = Color.BROWN;
+                    break;
+                case Fire:
+                    color = Color.FIREBRICK;
+                    break;
+                default:
+                    break;
+            }
+        }
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
         batch.draw(_Tx,
                 getX(), getY(),

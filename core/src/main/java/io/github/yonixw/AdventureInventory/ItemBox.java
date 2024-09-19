@@ -1,5 +1,6 @@
 package io.github.yonixw.AdventureInventory;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -80,27 +81,32 @@ public class ItemBox extends Actor implements IClickable {
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         //Gdx.app.log("DOWN", getParent().getName() + "->" + getName());
-        if (myLoot != null) {
+        Main.Cursor.lastEnterBox = this;
+        if (myLoot != null && Main.Cursor.dragLoot == null) {
+            Gdx.app.log("DOWN-X", getParent().getName() + "->" + getName());
             Main.Cursor.dragLoot = myLoot;
-            Main.Cursor.lastEnterBox = this;
-            myLoot.follow(Main.Cursor);
             myLoot = null;
-        } else if (myLoot == null && Main.Cursor.dragLoot != null) {
-            // Missed click
-            myLoot = Main.Cursor.dragLoot;
-            Main.Cursor.dragLoot = null;
-            Main.Cursor.lastEnterBox = this;
-            myLoot.follow(this);
+            Main.Cursor.dragLoot.follow(Main.Cursor);
         }
+        //else if (myLoot == null && Main.Cursor.dragLoot != null) {
+        //    // Missed click
+        //    myLoot = Main.Cursor.dragLoot;
+        //    Main.Cursor.dragLoot = null;
+        //    myLoot.follow(this);
+        //}
         return true;
     }
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
         //Gdx.app.log("UP", getParent().getName() + "->" + getName());
-        if (Main.Cursor.dragLoot != null) {
+        if (Main.Cursor.dragLoot != null && Main.Cursor.lastEnterBox.myLoot == null) {
+            Gdx.app.log("UP-X", getParent().getName() + "->" + getName());
             // Missed click
-            myLoot = null;
+            if (!Main.Cursor.lastEnterBox.equals(this)) {
+                myLoot = null;
+                Gdx.app.log("UP-Y", getParent().getName() + "->" + getName());
+            }
             Main.Cursor.lastEnterBox.myLoot = Main.Cursor.dragLoot;
             Main.Cursor.dragLoot = null;
             Main.Cursor.lastEnterBox.myLoot.follow(Main.Cursor.lastEnterBox);
