@@ -27,6 +27,8 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     private Texture systemTexture;
     private TextureRegion[][] systemRegions; // [Y][X]
+    private Texture lootTexture;
+    private TextureRegion[][] lootRegions; // [Y][X]
     private Stage stage;
 
     public static BitmapFont fontGroundhog;
@@ -36,12 +38,16 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     public static Cursor Cursor;
 
+    public static AllItems ALL_ITEMS = new AllItems();
+
     @Override
     public void create() {
         systemTexture = new Texture("InvTileSet.png");
+        lootTexture = new Texture("WeaponAndLoot.png");
+
         systemRegions = TextureRegion.split(systemTexture, 16, 16);
-        //fontGroundhog = getFont("fonts/bitmap/groundhog.ttf", 25, Color.WHITE);
-        //fontDino = getFont("fonts/bitmap/dinotype2.ttf", 25, Color.WHITE);
+        lootRegions = TextureRegion.split(lootTexture, 16, 16);
+
         fontGroundhog = getNormalFont("fonts/bitmap/groundhog_bmf.fnt", 1, Color.WHITE);
         fontDino = getNormalFont("fonts/bitmap/dinotype_bmf.fnt", 0.5f, Color.BLUE);
 
