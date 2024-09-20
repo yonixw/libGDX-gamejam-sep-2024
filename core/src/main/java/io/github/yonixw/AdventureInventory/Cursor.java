@@ -50,6 +50,10 @@ public class Cursor extends Actor {
                 getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());
 
-        _font.draw(batch, Math.round(mousePos.x) + "," + Math.round(mousePos.y), mousePos.x, mousePos.y - 20);
+        if (dragLoot != null && dragLoot._myItem != null) {
+            _font.draw(batch, dragLoot._myItem.name, mousePos.x, mousePos.y - 20);
+        } else {
+            _font.draw(batch, Math.round(mousePos.x) + "," + Math.round(mousePos.y), mousePos.x, mousePos.y - 20);
+        }
     }
 }
