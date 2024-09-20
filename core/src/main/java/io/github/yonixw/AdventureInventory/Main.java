@@ -65,7 +65,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         //    stage.addActor(MyItems);
         //}
         double sqr = Math.ceil(Math.sqrt(ALL_ITEMS.ALL_LOOT.length));
-        Group MyItems = new ItemGroups(systemRegions, (int) sqr, (int) sqr + 1, 1);
+        Group MyItems = new ItemGroups(systemRegions, (int) sqr + 1, (int) sqr, 1);
         MyItems.setName("ItemGroup_1");
         MyItems.setScale(2f, 2f);
         MyItems.setPosition(0, HEIGHT / 2 / 2);

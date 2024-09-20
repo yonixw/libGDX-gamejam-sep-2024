@@ -1,6 +1,5 @@
 package io.github.yonixw.AdventureInventory;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -67,9 +66,13 @@ public class ItemBox extends Actor implements IClickable {
 
     public Loot myLoot;
 
+    public void l(String tag) {
+        //Gdx.app.log(tag, getParent().getName() + "->" + getName());
+    }
+
     @Override
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-        //Gdx.app.log("ENTER", getParent().getName() + "->" + getName());
+        l("ENTER-1");
         Main.Cursor.lastEnterBox = this;
     }
 
@@ -81,35 +84,38 @@ public class ItemBox extends Actor implements IClickable {
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         //Gdx.app.log("DOWN", getParent().getName() + "->" + getName());
+
+        l("DOWN-1");
+        Loot _lastDragLoot = Main.Cursor.dragLoot;
+
         Main.Cursor.lastEnterBox = this;
-        if (myLoot != null && Main.Cursor.dragLoot == null) {
-            Gdx.app.log("DOWN-X", getParent().getName() + "->" + getName());
+        if (myLoot != null && _lastDragLoot == null) {
+            l("DOWN-2");
             Main.Cursor.dragLoot = myLoot;
+            myLoot.follow(Main.Cursor);
             myLoot = null;
-            Main.Cursor.dragLoot.follow(Main.Cursor);
+        } else if (myLoot == null && _lastDragLoot != null) {
+            l("DOWN-3");
+            // Missed click
+            myLoot = _lastDragLoot;
+            Main.Cursor.dragLoot = null;
+            myLoot.follow(this);
         }
-        //else if (myLoot == null && Main.Cursor.dragLoot != null) {
-        //    // Missed click
-        //    myLoot = Main.Cursor.dragLoot;
-        //    Main.Cursor.dragLoot = null;
-        //    myLoot.follow(this);
-        //}
         return true;
     }
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
         //Gdx.app.log("UP", getParent().getName() + "->" + getName());
-        if (Main.Cursor.dragLoot != null && Main.Cursor.lastEnterBox.myLoot == null) {
-            Gdx.app.log("UP-X", getParent().getName() + "->" + getName());
+        l("UP-1");
+        ItemBox _lastEnterBox = Main.Cursor.lastEnterBox;
+
+        if (Main.Cursor.dragLoot != null && _lastEnterBox.myLoot == null) {
+            l("UP-2");
             // Missed click
-            if (!Main.Cursor.lastEnterBox.equals(this)) {
-                myLoot = null;
-                Gdx.app.log("UP-Y", getParent().getName() + "->" + getName());
-            }
-            Main.Cursor.lastEnterBox.myLoot = Main.Cursor.dragLoot;
+            _lastEnterBox.myLoot = Main.Cursor.dragLoot;
             Main.Cursor.dragLoot = null;
-            Main.Cursor.lastEnterBox.myLoot.follow(Main.Cursor.lastEnterBox);
+            _lastEnterBox.myLoot.follow(_lastEnterBox);
         }
     }
 
