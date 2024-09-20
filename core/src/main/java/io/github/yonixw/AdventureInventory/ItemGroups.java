@@ -59,7 +59,7 @@ public class ItemGroups extends Group {
     }
 
     MoveToAction latestMovment;
-    final float marginMovementPrct = 0.1f;
+    final float marginMovementPrct = 0.05f;
 
     @Override
     public void act(float delta) {
@@ -75,14 +75,13 @@ public class ItemGroups extends Group {
             // Main.WIDTH, Main.HEIGHT
 
             Vector2 Target = new Vector2(
-                    (marginMovementPrct + (float) Math.random() * (1 - marginMovementPrct)) * getParent().getWidth(),
-                    (marginMovementPrct + (float) Math.random() * (1 - marginMovementPrct)) * getParent().getHeight()
+                    -this.getWidth() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.WIDTH / 4,
+                    -this.getHeight() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.HEIGHT / 4
             );
             latestMovment = new MoveToAction();
-            latestMovment.setStartPosition(getX(), getY());
-            latestMovment.setPosition(Target.x - getX(), Target.y - getY());
-            latestMovment.setDuration(1);
-
+            latestMovment.setPosition(Target.x, Target.y);
+            latestMovment.setDuration(5);
+            Gdx.app.log("GROUP-XY", Target.x + "," + Target.y);
             Gdx.app.log("GROUP", getName() + ": "
                     + latestMovment.getStartX() + "," + latestMovment.getStartY() + "=>"
                     + latestMovment.getX() + "," + latestMovment.getY()
