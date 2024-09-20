@@ -42,3 +42,65 @@
         fontDino.draw(spb, "[RED]" + sb.toString(), 100, 700);
         spb.end();
         spb.dispose();
+
+
+        
+        
+ int i = 0;
+        for (AllItems.Item item : ALL_ITEMS.ALL_LOOT) {
+
+            ItemBox follow = (ItemBox) (MyItems.getChild(i));
+            Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+            l.setName(item.name);
+            //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+            l.setScale(2f, 2f);
+            l.follow(follow);
+
+            follow.myLoot = l;
+
+            i++;
+        }
+
+        for (int j = 0; j < 4; j++) {
+            AllItems.Item item = ALL_ITEMS.Attack_TwoHand_Sword_L3;
+            ItemBox follow = (ItemBox) (MyItems.getChild(i));
+            Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+            l.setName(item.name);
+            //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+            l.setScale(2f, 2f);
+            l.follow(follow);
+            l.myVariation = AllItems.ItemType.values()[1 + j];
+            follow.myLoot = l;
+
+            i++;
+
+        }
+
+        for (int j = 0; j < 4; j++) {
+            AllItems.Item item = ALL_ITEMS.Armor_Gold;
+            ItemBox follow = (ItemBox) (MyItems.getChild(i));
+            Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+            l.setName(item.name);
+            //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+            l.setScale(2f, 2f);
+            l.follow(follow);
+            l.myVariation = AllItems.ItemType.values()[1 + j];
+            follow.myLoot = l;
+
+            i++;
+
+        }
+
+
+
+    //public BitmapFont getFont(String Path, int Size, Color c) {
+    //    BitmapFont font;
+    //    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Path));
+    //    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    //    parameter.size = Size;
+    //    parameter.color = c;
+    //    font = generator.generateFont(parameter); // font size 12 pixels
+    //    font.getData().markupEnabled = true;
+    //    generator.dispose(); // don't forget to dispose to avoid memory leaks!
+    //    return font;
+    //}

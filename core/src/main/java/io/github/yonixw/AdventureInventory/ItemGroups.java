@@ -3,13 +3,20 @@ package io.github.yonixw.AdventureInventory;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
 public class ItemGroups extends Group {
 
@@ -21,6 +28,7 @@ public class ItemGroups extends Group {
     ArrayList<Actor> myChild = new ArrayList<Actor>();
 
     public final static int PIXELS = 16;
+    public final static Color AlphaWhite = Color.WHITE.mul(1, 1, 1, 0.7f);
 
     // type from 0-4 (Earth,Fire,Water,Air,Nutral) * 2 (Single, Multi)
     public ItemGroups(TextureRegion[][] sysTx, int w, int h, int type) {
@@ -47,6 +55,40 @@ public class ItemGroups extends Group {
                 myChild.add(ax);
                 addActor(ax);
             }
+        }
+    }
+
+    MoveToAction latestMovment;
+    final float marginMovementPrct = 0.1f;
+
+    @Override
+    public void act(float delta) {
+        if (latestMovment != null) {
+            latestMovment.act(delta);
+        }
+
+        if (latestMovment == null || latestMovment.isComplete()) {
+            if (latestMovment != null) {
+                removeAction(latestMovment);
+            }
+            Gdx.app.log("GROUP", "Act");
+            // Main.WIDTH, Main.HEIGHT
+
+            Vector2 Target = new Vector2(
+                    (marginMovementPrct + (float) Math.random() * (1 - marginMovementPrct)) * getParent().getWidth(),
+                    (marginMovementPrct + (float) Math.random() * (1 - marginMovementPrct)) * getParent().getHeight()
+            );
+            latestMovment = new MoveToAction();
+            latestMovment.setStartPosition(getX(), getY());
+            latestMovment.setPosition(Target.x - getX(), Target.y - getY());
+            latestMovment.setDuration(1);
+
+            Gdx.app.log("GROUP", getName() + ": "
+                    + latestMovment.getStartX() + "," + latestMovment.getStartY() + "=>"
+                    + latestMovment.getX() + "," + latestMovment.getY()
+            );
+
+            addAction(latestMovment);
         }
     }
 
@@ -115,5 +157,9 @@ public class ItemGroups extends Group {
         }
 
         super.drawChildren(batch, parentAlpha);
+
+        GlyphLayout gl = new GlyphLayout(Main.fontDino, "Keepshopper");
+        Main.fontDino.setColor(AlphaWhite);
+        Main.fontDino.draw(batch, gl, _x + _size, _y + gl.height);
     }
 }
