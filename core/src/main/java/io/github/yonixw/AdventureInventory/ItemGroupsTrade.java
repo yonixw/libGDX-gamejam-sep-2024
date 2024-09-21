@@ -29,8 +29,8 @@ public class ItemGroupsTrade extends ItemGroups {
             addActor(ok);
             ok.setScale(getScaleX());
         }
-        img.setPosition(getX() + 32, getY());
-        ok.setPosition(getX() + getWidth(), getY() + getHeight());
+        img.setPosition(getX() + TextShift, getY());
+        ok.setPosition(getX() + getWidth() - 1.5f * TextShift, getY() - 0.25f * TextShift);
 
         super.drawChildren(batch, parentAlpha);
 
