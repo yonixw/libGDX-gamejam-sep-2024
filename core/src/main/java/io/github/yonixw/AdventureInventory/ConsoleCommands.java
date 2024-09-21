@@ -75,18 +75,52 @@ public class ConsoleCommands extends CommandExecutor {
         }
     }
 
-    public void qp1(int i) {
+    public void qD1(int GroupIndex, float x, float y, float w, float h, float s) {
         try {
             Actor[] result = new Actor[1];
-            getActor(result, i, Main.Instance.stage.getRoot(), 0, "");
-            if (result[0] == null) {
-                console.log("Index " + i + " Not found!");
+            getActor(result, GroupIndex, Main.Instance.stage.getRoot(), 0, "");
+            if (result[0] == null || !(result[0] instanceof Group)) {
+                console.log("Index " + GroupIndex + " Not found or not a Group!");
             } else {
-                console.log("Pos:" + result[0].getX() + "," + result[0].getY());
+                DebugBox db = new DebugBox(x, y, w, h, s);
+                ((Group) result[0]).addActor(db);
             }
         } catch (Exception e) {
             console.log(e);
         }
+
+    }
+
+    public void qD2(int GroupIndex) {
+        try {
+            Actor[] result = new Actor[1];
+            getActor(result, GroupIndex, Main.Instance.stage.getRoot(), 0, "");
+            if (result[0] == null) {
+                console.log("Index " + GroupIndex + " Not found!");
+            } else {
+                console.log("Pos:" + result[0].getX() + "," + result[0].getY());
+                console.log("WH:" + result[0].getWidth() + "," + result[0].getHeight());
+                console.log("Sxy:" + result[0].getScaleX() + "," + result[0].getScaleY());
+            }
+        } catch (Exception e) {
+            console.log(e);
+        }
+
+    }
+
+    public void qD3(int GroupIndex, float x, float y) {
+        try {
+            Actor[] result = new Actor[1];
+            getActor(result, GroupIndex, Main.Instance.stage.getRoot(), 0, "");
+            if (result[0] == null) {
+                console.log("Index " + GroupIndex + " Not found!");
+            } else {
+                result[0].setPosition(x, y);
+            }
+        } catch (Exception e) {
+            console.log(e);
+        }
+
     }
 
     public void q() {
