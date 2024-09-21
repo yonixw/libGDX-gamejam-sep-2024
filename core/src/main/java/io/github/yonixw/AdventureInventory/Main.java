@@ -2,7 +2,9 @@ package io.github.yonixw.AdventureInventory;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.Texture;
@@ -73,6 +75,12 @@ public class Main extends InputAdapter implements ApplicationListener {
         Cursor.setScale(4f, 4f);
         stage.addActor(Cursor);
 
+        ConsoleCommands cc = new ConsoleCommands();
+        InputMultiplexer im = new InputMultiplexer();
+        im.addProcessor(this);
+        im.addProcessor(ConsoleCommands.getConsole().getInputProcessor());
+        Gdx.input.setInputProcessor(im);
+
         Gdx.graphics.setSystemCursor(SystemCursor.None);
     }
 
@@ -85,6 +93,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         ScreenUtils.clear(Color.BLACK);
         stage.act(delta);
         stage.draw();
+        ConsoleCommands.draw();
 
     }
 
@@ -94,6 +103,16 @@ public class Main extends InputAdapter implements ApplicationListener {
         font.getData().setScale(Scale, Scale);
         font.setColor(c);
         return font;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+
+        if ((keycode == Input.Keys.Q)) {
+            ConsoleCommands.getConsole().setVisible(!ConsoleCommands.getConsole().isVisible());
+            ConsoleCommands.getConsole().select();
+        }
+        return false;
     }
 
     @Override

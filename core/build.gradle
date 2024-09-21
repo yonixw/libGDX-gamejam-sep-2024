@@ -33,4 +33,6 @@ dependencies {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
 
+  implementation "com.strongjoshua:libgdx-inGameConsole:1.0.0"
+
 }
