@@ -13,16 +13,21 @@ public class OkButton extends Group {
 
     Image okCheck;
     ImageButton btn;
+    Runnable _cb;
 
-    public OkButton() {
+    public OkButton(Runnable callback) {
         TextureRegionDrawable up = new TextureRegionDrawable(Main.Instance.systemRegions[6][1]);
         TextureRegionDrawable down = new TextureRegionDrawable(Main.Instance.systemRegions[6][0]);
+        _cb = callback;
 
         btn = new ImageButton(up, down);
         btn.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 okCheck.setY(0);
+                if (_cb != null) {
+                    _cb.run();
+                }
             }
 
             @Override

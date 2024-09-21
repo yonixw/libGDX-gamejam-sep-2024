@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -76,7 +75,9 @@ public class Main extends InputAdapter implements ApplicationListener {
             int w = 1 + (int) Math.floor(Math.random() * 5);
             int h = 1 + (int) Math.floor(Math.random() * 5);
             int y = (int) Math.floor(Math.random() * 100) + 100;
-            ItemGroupsTrade MyItems = new ItemGroupsTrade(systemRegions, 4, 2, 1 + 2 * i, lootRegions[2][5]);
+            ItemGroupsTrade MyItems = new ItemGroupsTrade(systemRegions, 4, 2, 1 + 2 * i, lootRegions[2][5], () -> {
+                Gdx.app.log("CALLBACK", "GGGGGGGGGGGGGGGGGGGGGGGGGG");
+            });
             MyItems.setName("ItemGroup_" + i);
             MyItems.setPosition(0 + i * 75, y);
             MyItems.setScale(2f, 2f);
@@ -101,7 +102,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         im.addProcessor(CC.getConsole().getInputProcessor());
         Gdx.input.setInputProcessor(im);
 
-        Gdx.graphics.setSystemCursor(SystemCursor.None);
+        Gdx.graphics.setSystemCursor(com.badlogic.gdx.graphics.Cursor.SystemCursor.None);
     }
 
     @Override
