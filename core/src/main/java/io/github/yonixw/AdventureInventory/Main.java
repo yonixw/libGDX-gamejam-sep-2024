@@ -27,11 +27,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class Main extends InputAdapter implements ApplicationListener {
 
-    private Texture systemTexture;
-    private TextureRegion[][] systemRegions; // [Y][X]
-    private Texture lootTexture;
-    private TextureRegion[][] lootRegions; // [Y][X]
-    private Stage stage;
+    public static Main Instance;
+
+    public Texture systemTexture;
+    public TextureRegion[][] systemRegions; // [Y][X]
+    public Texture lootTexture;
+    public TextureRegion[][] lootRegions; // [Y][X]
+    public Stage stage;
 
     public static BitmapFont fontGroundhog;
     public static BitmapFont fontDino;
@@ -44,6 +46,8 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     @Override
     public void create() {
+        Instance = this;
+
         systemTexture = new Texture("InvTileSet.png");
         lootTexture = new Texture("WeaponAndLoot.png");
 
@@ -56,7 +60,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) { //5
             int w = 1 + (int) Math.floor(Math.random() * 5);
             int h = 1 + (int) Math.floor(Math.random() * 5);
             int y = (int) Math.floor(Math.random() * 100) + 100;
@@ -69,9 +73,11 @@ public class Main extends InputAdapter implements ApplicationListener {
         }
 
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
+        mc.setName("MessageChat");
         stage.addActor(mc);
 
         Cursor = new Cursor(systemRegions, fontGroundhog);
+        Cursor.setName("MAIN_CURSOR");
         Cursor.setScale(4f, 4f);
         stage.addActor(Cursor);
 
@@ -108,9 +114,10 @@ public class Main extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyDown(int keycode) {
 
-        if ((keycode == Input.Keys.Q)) {
+        if ((keycode == Input.Keys.TAB)) {
             ConsoleCommands.getConsole().setVisible(!ConsoleCommands.getConsole().isVisible());
             ConsoleCommands.getConsole().select();
+            ConsoleCommands.getConsole().setSubmitText("");
         }
         return false;
     }

@@ -63,6 +63,8 @@ public class ItemGroups extends Group {
 
     @Override
     public void act(float delta) {
+        /*
+
         if (latestMovment != null) {
             latestMovment.act(delta);
         }
@@ -89,6 +91,8 @@ public class ItemGroups extends Group {
 
             addAction(latestMovment);
         }
+
+         */
     }
 
     @Override
