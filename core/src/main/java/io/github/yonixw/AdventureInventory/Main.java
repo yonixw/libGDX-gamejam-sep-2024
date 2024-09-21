@@ -58,39 +58,15 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        for (int i = 0; i < 1; i++) { //5
-            int w = 1 + (int) Math.floor(Math.random() * 5);
-            int h = 1 + (int) Math.floor(Math.random() * 5);
-            int y = (int) Math.floor(Math.random() * 100) + 100;
-            ItemGroups MyItems = new ItemGroups(systemRegions, 4, 2, 1 + 2 * i);
-            MyItems.setName("ItemGroup_" + i);
-            MyItems.setPosition(0 + i * 75, y);
-            MyItems.setScale(2f, 2f);
-            MyItems.Title = "Shop";
+        CreateElement();
 
-            stage.addActor(MyItems);
-        }
-
-        for (int i = 1; i < 2; i++) { //5
-            int w = 1 + (int) Math.floor(Math.random() * 5);
-            int h = 1 + (int) Math.floor(Math.random() * 5);
-            int y = (int) Math.floor(Math.random() * 100) + 100;
-            ItemGroupsTrade MyItems = new ItemGroupsTrade(systemRegions, 4, 2, 1 + 2 * i, lootRegions[2][5], () -> {
-                Gdx.app.log("CALLBACK", "GGGGGGGGGGGGGGGGGGGGGGGGGG");
-            });
-            MyItems.setName("ItemGroup_" + i);
-            MyItems.setPosition(0 + i * 75, y);
-            MyItems.setScale(2f, 2f);
-            MyItems.Title = "Magic";
-
-            stage.addActor(MyItems);
-        }
+        CreateSellers();
 
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
         mc.setName("MessageChat");
         stage.addActor(mc);
 
-        Cursor = new Cursor(systemRegions, fontGroundhog);
+        Cursor = new Cursor(systemRegions, fontDino);
         Cursor.setName("MAIN_CURSOR");
         Cursor.setScale(4f, 4f);
         stage.addActor(Cursor);
@@ -103,6 +79,53 @@ public class Main extends InputAdapter implements ApplicationListener {
         Gdx.input.setInputProcessor(im);
 
         Gdx.graphics.setSystemCursor(com.badlogic.gdx.graphics.Cursor.SystemCursor.None);
+    }
+
+    private void CreateElement() {
+        String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "No Type"};
+        for (int i = 0; i < 5; i++) {
+            int w = 1 + (int) Math.floor(Math.random() * 5);
+            int h = 1 + (int) Math.floor(Math.random() * 5);
+            int y = (int) Math.floor(Math.random() * 100) + 100;
+            ItemGroups MyItems = new ItemGroups(systemRegions, i == 4 ? 3 : 4, 2, 1 + 2 * i);
+            MyItems.setName("ItemGroup_" + i);
+            MyItems.setPosition(0 + i * 75, y);
+            MyItems.setScale(2f, 2f);
+            MyItems.Title = TypeTitles[i];
+
+            stage.addActor(MyItems);
+        }
+    }
+
+    private void CreateSellers() {
+        // ========= WARRIOR
+        ItemGroupsTrade MyItemsWarrior = new ItemGroupsTrade(systemRegions, 4, 2, 9, lootRegions[2][5], () -> {
+            Gdx.app.log("CALLBACK", "111111111111111");
+        });
+        MyItemsWarrior.setName("WarriorGroup");
+        MyItemsWarrior.setPosition(0 + 0 * 75, 50);
+        MyItemsWarrior.setScale(2f, 2f);
+        MyItemsWarrior.Title = "Warrior";
+        // ========= WARRIOR
+        ItemGroupsTrade MyItemsMagician = new ItemGroupsTrade(systemRegions, 4, 1, 9, lootRegions[2][6], () -> {
+            Gdx.app.log("CALLBACK", "2222222222222222");
+        });
+        MyItemsMagician.setName("MagicianGroup");
+        MyItemsMagician.setPosition(0 + 1 * 75, 150);
+        MyItemsMagician.setScale(2f, 2f);
+        MyItemsMagician.Title = "Wizard";
+        // ========= WARRIOR
+        ItemGroupsTrade MyItemsMerchant = new ItemGroupsTrade(systemRegions, 5, 1, 9, lootRegions[2][7], () -> {
+            Gdx.app.log("CALLBACK", "33333333333333");
+        });
+        MyItemsMerchant.setName("MerchantGroup");
+        MyItemsMerchant.setPosition(0 + 2 * 75, 200);
+        MyItemsMerchant.setScale(2f, 2f);
+        MyItemsMerchant.Title = "Merchant";
+
+        stage.addActor(MyItemsWarrior);
+        stage.addActor(MyItemsMagician);
+        stage.addActor(MyItemsMerchant);
     }
 
     @Override

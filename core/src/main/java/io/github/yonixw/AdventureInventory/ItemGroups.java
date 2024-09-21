@@ -128,8 +128,7 @@ public class ItemGroups extends Group {
         batch.draw(myGroupTx[0], _x + _size * (_w + 1), _y - _size * (_h + 1), _size, _size);
         myGroupTx[0].flip(true, true);
 
-        setBounds(_x, _y, _size * (_w + 2), _size * (_h + 1));
-
+        //setBounds(_x + _size, _y - _size, _size * (_w + 1), _size * (_h + 1));
         for (int i = 0; i < _w; i++) {
             // Tops
             myGroupTx[1].flip(false, false);

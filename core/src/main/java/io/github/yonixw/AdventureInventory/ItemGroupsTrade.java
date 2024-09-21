@@ -8,10 +8,12 @@ public class ItemGroupsTrade extends ItemGroups {
 
     Image img;
     OkButton ok;
+    int _w;
 
     // type from 0-4 (Earth,Fire,Water,Air,Nutral) * 2 (Single, Multi)
     public ItemGroupsTrade(TextureRegion[][] sysTx, int w, int h, int type, TextureRegion header, Runnable clicked) {
         super(sysTx, w, h, type);
+        _w = w;
         TextShift = 32;
 
         img = new Image(header);
@@ -28,7 +30,8 @@ public class ItemGroupsTrade extends ItemGroups {
         img.setScale(getScaleX());
         ok.setScale(getScaleX());
         img.setPosition(getX() + TextShift, getY());
-        ok.setPosition(getX() + getWidth() - 1.5f * TextShift, getY() - 0.25f * TextShift);
+
+        ok.setPosition(getX() + (_w + 0.5f) * getScaleX() * 16, getY() - 0.25f * TextShift);
 
         super.drawChildren(batch, parentAlpha);
 
