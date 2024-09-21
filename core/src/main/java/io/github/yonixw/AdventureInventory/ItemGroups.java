@@ -30,6 +30,8 @@ public class ItemGroups extends Group {
     public final static int PIXELS = 16;
     public final static Color AlphaWhite = Color.WHITE.mul(1, 1, 1, 0.7f);
 
+    public String Title = "";
+
     // type from 0-4 (Earth,Fire,Water,Air,Nutral) * 2 (Single, Multi)
     public ItemGroups(TextureRegion[][] sysTx, int w, int h, int type) {
         int contLine = (type - type % 4) / 4;
@@ -60,40 +62,43 @@ public class ItemGroups extends Group {
 
     MoveToAction latestMovment;
     final float marginMovementPrct = 0.05f;
+    boolean move = false;
 
     @Override
     public void act(float delta) {
-        /*
 
-        if (latestMovment != null) {
-            latestMovment.act(delta);
-        }
-
-        if (latestMovment == null || latestMovment.isComplete()) {
+        if (move) {
             if (latestMovment != null) {
-                removeAction(latestMovment);
+                latestMovment.act(delta);
             }
-            Gdx.app.log("GROUP", "Act");
-            // Main.WIDTH, Main.HEIGHT
 
-            Vector2 Target = new Vector2(
-                    -this.getWidth() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.WIDTH / 4,
-                    -this.getHeight() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.HEIGHT / 4
-            );
-            latestMovment = new MoveToAction();
-            latestMovment.setPosition(Target.x, Target.y);
-            latestMovment.setDuration(5);
-            Gdx.app.log("GROUP-XY", Target.x + "," + Target.y);
-            Gdx.app.log("GROUP", getName() + ": "
-                    + latestMovment.getStartX() + "," + latestMovment.getStartY() + "=>"
-                    + latestMovment.getX() + "," + latestMovment.getY()
-            );
+            if (latestMovment == null || latestMovment.isComplete()) {
+                if (latestMovment != null) {
+                    removeAction(latestMovment);
+                }
+                Gdx.app.log("GROUP", "Act");
+                // Main.WIDTH, Main.HEIGHT
 
-            addAction(latestMovment);
+                Vector2 Target = new Vector2(
+                        -this.getWidth() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.WIDTH / 4,
+                        -this.getHeight() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.HEIGHT / 4
+                );
+                latestMovment = new MoveToAction();
+                latestMovment.setPosition(Target.x, Target.y);
+                latestMovment.setDuration(5);
+                Gdx.app.log("GROUP-XY", Target.x + "," + Target.y);
+                Gdx.app.log("GROUP", getName() + ": "
+                        + latestMovment.getStartX() + "," + latestMovment.getStartY() + "=>"
+                        + latestMovment.getX() + "," + latestMovment.getY()
+                );
+
+                addAction(latestMovment);
+            }
         }
 
-         */
     }
+
+    protected int TextShift = 0;
 
     @Override
     protected void drawChildren(Batch batch, float parentAlpha) {
@@ -161,8 +166,8 @@ public class ItemGroups extends Group {
 
         super.drawChildren(batch, parentAlpha);
 
-        GlyphLayout gl = new GlyphLayout(Main.fontDino, "Keepshopper");
+        GlyphLayout gl = new GlyphLayout(Main.fontDino, Title);
         Main.fontDino.setColor(AlphaWhite);
-        Main.fontDino.draw(batch, gl, _x + _size, _y + gl.height);
+        Main.fontDino.draw(batch, gl, _x + _size + TextShift, _y + gl.height);
     }
 }

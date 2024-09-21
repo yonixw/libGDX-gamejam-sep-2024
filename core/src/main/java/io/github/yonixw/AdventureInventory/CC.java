@@ -9,11 +9,11 @@ import com.strongjoshua.console.CommandExecutor;
 import com.strongjoshua.console.Console;
 import com.strongjoshua.console.GUIConsole;
 
-public class ConsoleCommands extends CommandExecutor {
+public class CC extends CommandExecutor { // ConsoleCommands
 
     private static GUIConsole console;
 
-    public ConsoleCommands() {
+    public CC() {
 
         Skin skin = new Skin(
                 Gdx.files.internal("ingameconsole_default_skin/uiskin.json"),
@@ -67,7 +67,7 @@ public class ConsoleCommands extends CommandExecutor {
         return _j;
     }
 
-    public void ql1() {
+    public void ls() {
         try {
             printUnder(Main.Instance.stage.getRoot(), 0, "");
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class ConsoleCommands extends CommandExecutor {
         }
     }
 
-    public void qD1(int GroupIndex, float x, float y, float w, float h, float s) {
+    public void rect(int GroupIndex, float x, float y, float w, float h, float s) {
         try {
             Actor[] result = new Actor[1];
             getActor(result, GroupIndex, Main.Instance.stage.getRoot(), 0, "");
@@ -91,7 +91,7 @@ public class ConsoleCommands extends CommandExecutor {
 
     }
 
-    public void qD2(int GroupIndex) {
+    public void ls(int GroupIndex) {
         try {
             Actor[] result = new Actor[1];
             getActor(result, GroupIndex, Main.Instance.stage.getRoot(), 0, "");
@@ -108,7 +108,7 @@ public class ConsoleCommands extends CommandExecutor {
 
     }
 
-    public void qD3(int GroupIndex, float x, float y) {
+    public void mv(int GroupIndex, float x, float y) {
         try {
             Actor[] result = new Actor[1];
             getActor(result, GroupIndex, Main.Instance.stage.getRoot(), 0, "");
