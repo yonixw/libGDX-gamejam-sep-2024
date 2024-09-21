@@ -104,3 +104,29 @@
     //    generator.dispose(); // don't forget to dispose to avoid memory leaks!
     //    return font;
     //}
+
+
+
+    public static Texture combineTextures(TextureRegion texture1, TextureRegion texture2) {
+        texture1.getTexture().getTextureData().prepare();
+        Pixmap pixmap1 = texture1.getTexture().getTextureData().consumePixmap();
+
+        texture2.getTexture().getTextureData().prepare();
+        Pixmap pixmap2 = texture2.getTexture().getTextureData().consumePixmap();
+
+        Texture _n = new Texture(texture1.getRegionWidth(), texture1.getRegionHeight(), Format.RGBA8888);
+        _n.getTextureData().prepare();
+        Pixmap _nMap = _n.getTextureData().consumePixmap();
+
+        pixmap1.drawPixmap(_nMap, 0, 0, texture1.getRegionX(), texture1.getRegionY(), texture1.getRegionWidth(), texture1.getRegionHeight());
+        pixmap2.drawPixmap(_nMap, 0, 0, texture2.getRegionX(), texture2.getRegionY(), texture2.getRegionWidth(), texture2.getRegionHeight());
+
+        Texture textureResult = new Texture(_nMap);
+
+        _nMap.dispose();
+        _n.dispose();
+        pixmap1.dispose();
+        pixmap2.dispose();
+
+        return textureResult;
+    }

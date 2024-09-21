@@ -43,7 +43,7 @@ public class Cursor extends Actor {
         setY(mousePos.y);
 
         Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        batch.setColor(color.r, color.g, color.b, 0.7f * parentAlpha);
         batch.draw(mouseLeftClick ? curserClosed : curserOpen,
                 getX(), getY(),
                 getOriginX(), getOriginY(),
