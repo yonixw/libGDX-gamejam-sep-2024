@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.utils.Align;
 
@@ -74,6 +75,11 @@ public class ItemBox extends Actor implements IClickable {
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
         l("ENTER-1");
         Main.Cursor.lastEnterBox = this;
+        ItemGroups myGroup = (ItemGroups) getParent();
+        Group root = myGroup.getParent();
+        int rootCount = root.getChildren().size;
+        root.swapActor(rootCount - 1, rootCount - 2);
+        root.swapActor(myGroup, root.getChild(rootCount - 1));
     }
 
     @Override

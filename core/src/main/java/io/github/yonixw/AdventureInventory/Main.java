@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -58,17 +59,15 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        CreateElement(5);
+        Group AllGroups = new Group();
+        CreateElement(5, AllGroups);
 
-        CreateSellers();
+        CreateSellers(AllGroups);
+        stage.addActor(AllGroups);
+
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
         mc.setName("MessageChat");
         stage.addActor(mc);
-
-        Cursor = new Cursor(systemRegions, fontDino);
-        Cursor.setName("MAIN_CURSOR");
-        Cursor.setScale(4f, 4f);
-        stage.addActor(Cursor);
 
         CC cc = new CC();
         InputMultiplexer im = new InputMultiplexer();
@@ -77,10 +76,15 @@ public class Main extends InputAdapter implements ApplicationListener {
         im.addProcessor(CC.getConsole().getInputProcessor());
         Gdx.input.setInputProcessor(im);
 
+        Cursor = new Cursor(systemRegions, fontDino);
+        Cursor.setName("MAIN_CURSOR");
+        Cursor.setScale(4f, 4f);
+        stage.addActor(Cursor);
+
         Gdx.graphics.setSystemCursor(com.badlogic.gdx.graphics.Cursor.SystemCursor.None);
     }
 
-    private void CreateElement(int count) {
+    private void CreateElement(int count, Group g) {
         String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "No Type"};
         for (int i = 0; i < count; i++) {
             int w = 1 + (int) Math.floor(Math.random() * 5);
@@ -92,11 +96,11 @@ public class Main extends InputAdapter implements ApplicationListener {
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
 
-            stage.addActor(MyItems);
+            g.addActor(MyItems);
         }
     }
 
-    private void CreateSellers() {
+    private void CreateSellers(Group g) {
         // ========= WARRIOR
         ItemGroupsTrade MyItemsWarrior = new ItemGroupsTrade(systemRegions, 4, 2, 9, lootRegions[2][5], () -> {
             Gdx.app.log("CALLBACK", "111111111111111");
@@ -122,9 +126,9 @@ public class Main extends InputAdapter implements ApplicationListener {
         MyItemsMerchant.setScale(2f, 2f);
         MyItemsMerchant.Title = "Merchant";
 
-        stage.addActor(MyItemsWarrior);
-        stage.addActor(MyItemsMagician);
-        stage.addActor(MyItemsMerchant);
+        g.addActor(MyItemsWarrior);
+        g.addActor(MyItemsMagician);
+        g.addActor(MyItemsMerchant);
     }
 
     @Override
