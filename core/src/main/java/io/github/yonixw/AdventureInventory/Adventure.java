@@ -512,10 +512,10 @@ public class Adventure {
 
     public Monster SLime_Lvl1 = new Monster() {
         {
-            name = fcc(Color.GREEN, "Bloby Slime");
+            name = fcc(Color.GREEN, "Jelly Slime");
             myT = ItemType.Water;
 
-            attack = 1;
+            attack = 5;
 
             secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
         }
@@ -527,10 +527,10 @@ public class Adventure {
 
     public Monster Slime_Lvl2 = new Monster() {
         {
-            name = fcc(Color.GREEN, "Bloby Slime");
+            name = fcc(Color.GREEN, "Poison Slime");
             myT = ItemType.Water;
 
-            attack = 1;
+            attack = 7;
 
             secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
         }
