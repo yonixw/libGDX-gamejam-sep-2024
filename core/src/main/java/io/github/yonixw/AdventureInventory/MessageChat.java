@@ -76,6 +76,24 @@ public class MessageChat extends Actor {
                     .s(13, 3).s(12, 13, 24).s(11, 13);
         }
 
+        int lists[][] = new int[][]{
+            {0, 4}, {0, 3}, {0, 5}, {0, 6}, {0, 7}, {0, 9}, {0, 15},
+            {1, 0}, {1, 10},
+            {2, 10},
+            {3, 14},
+            {10, 10}, {10, 15},};
+
+        int[] listIndex = new int[]{0, 4};
+
+        public FastText ul() {
+            listIndex = lists[(int) (Math.random() * lists.length)];
+            return this;
+        }
+
+        public FastText li() {
+            return s(listIndex[0], listIndex[1]);
+        }
+
         @Override
         public String toString() {
             return sb.toString();
@@ -85,6 +103,15 @@ public class MessageChat extends Actor {
 
     ShapeRenderer shapeRenderer;
     Color fill = Color.BLACK.mul(1, 1, 1, 0.7f);
+
+    String myData = "";
+
+    public void addText(FastText ft) {
+        myData += ft.toString() + "\n";
+        if (myData.length() > 1500) {
+            myData = myData.substring(myData.length() - 1500);
+        }
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -103,12 +130,8 @@ public class MessageChat extends Actor {
         Gdx.gl.glDisable(GL20.GL_BLEND);
         batch.begin();
 
-        FastText f = new FastText();
-        f.h1("Adventure Start:");
-        // 1 + 24 + 1 
-
         GlyphLayout gl = new GlyphLayout();
-        gl.setText(Main.fontDino, f.toString());
+        gl.setText(Main.fontDino, myData);
         for (int i = 0; i < 20; i++) {
 
             Main.fontDino.draw(batch, gl, getX(), getY() + (i + 1) * gl.height);
