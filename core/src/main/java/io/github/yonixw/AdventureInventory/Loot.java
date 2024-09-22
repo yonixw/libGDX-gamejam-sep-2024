@@ -14,9 +14,10 @@ public class Loot extends Actor {
     AllItems.Item _myItem;
     AllItems.ItemType myVariation = AllItems.ItemType.Any;
 
-    public Loot(TextureRegion lootTexture, AllItems.Item myItem) {
-        _Tx = lootTexture;
+    public Loot(AllItems.ItemType type, AllItems.Item myItem) {
+        _Tx = Main.Instance.lootRegions[myItem.row_col[0]][myItem.row_col[1]];
         _myItem = myItem;
+        myVariation = type;
         setBounds(_Tx.getRegionX(), _Tx.getRegionY(),
                 _Tx.getRegionWidth(), _Tx.getRegionHeight());
         setOrigin(Align.bottomLeft);
@@ -29,15 +30,16 @@ public class Loot extends Actor {
             remove();
         }
         _follow = a;
-        _follow.getParent().addActor(this);
 
-        if (_follow != null && _follow.equals(Main.Cursor)) {
-            setOrigin(Align.center);
-        } else {
-            setOrigin(Align.bottomLeft);
+        if (_follow != null) {
+            _follow.getParent().addActor(this);
+            if (_follow.equals(Main.Cursor)) {
+                setOrigin(Align.center);
+            } else {
+                setOrigin(Align.bottomLeft);
 
+            }
         }
-
     }
 
     @Override

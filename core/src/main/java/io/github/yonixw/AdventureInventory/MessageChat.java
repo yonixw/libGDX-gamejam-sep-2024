@@ -71,6 +71,11 @@ public class MessageChat extends Actor {
             return this;
         }
 
+        public FastText s(float f) {
+            sb.append(f);
+            return this;
+        }
+
         public FastText n() {
             sb.append("\n");
             return this;

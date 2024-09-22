@@ -121,7 +121,7 @@ public class AllItems {
     public Item Coin_Single = new Item() {
         {
             name = "Single Coin";
-            row_col = new int[]{4, 0};
+            row_col = new int[]{4, 1};
 
             money = 1;
         }
@@ -129,7 +129,7 @@ public class AllItems {
     public Item Coin_Many = new Item() {
         {
             name = "Multiple Coins";
-            row_col = new int[]{4, 1};
+            row_col = new int[]{4, 0};
 
             money = 5;
         }
@@ -173,7 +173,7 @@ public class AllItems {
         }
     };
 
-    public Item[] ALL_BLOBS = new Item[]{Magic_Blob_Fire, Magic_Blob_Water, Magic_Blob_Ground, Magic_Blob_Air};
+    public Item[] ALL_BLOBS = new Item[]{Magic_Blob_Ground, Magic_Blob_Fire, Magic_Blob_Water, Magic_Blob_Air};
 
     // ======================================
     public Item Armor_Cloth = new Item() {

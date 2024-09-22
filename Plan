@@ -12,8 +12,7 @@ Find all health in food/potions
 if my atk > his atk
     His health = -diff
 else
-    loose diff in potions/food
-        if too big, loose all items
+    loose 1/2/3 random loot
         
 
 pay magic to combine 
@@ -27,7 +26,6 @@ pay magic to combine
     
 seller 
     junk into money, take 5% (rounded up )
-
 
 
 

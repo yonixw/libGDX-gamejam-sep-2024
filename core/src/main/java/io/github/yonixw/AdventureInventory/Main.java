@@ -132,7 +132,11 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     private void CreateSellers(Group g) {
         // ========= WARRIOR
-        ItemGroupsTrade2Btn MyItemsWarrior = new ItemGroupsTrade2Btn(systemRegions, 4, 2, 9, lootRegions[2][5], null, null);
+        ItemGroupsTrade2Btn MyItemsWarrior = new ItemGroupsTrade2Btn(systemRegions, 4, 2, 9, lootRegions[2][5],
+                () -> {
+                    Adventure.Instance.WarriorAttack();
+                },
+                 null);
         MyItemsWarrior.setName("WarriorGroup");
         MyItemsWarrior.setPosition(0 + 0 * 75, 50);
         MyItemsWarrior.setScale(2f, 2f);
