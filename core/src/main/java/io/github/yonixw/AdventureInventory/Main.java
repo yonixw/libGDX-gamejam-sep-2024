@@ -157,7 +157,12 @@ public class Main extends InputAdapter implements ApplicationListener {
                 () -> {
                     Adventure.Instance.WarriorAttack();
                 },
-                null);
+                () -> {
+                    Adventure.Instance.newMonster(true);
+                },
+                () -> {
+                    Adventure.Instance.MonsterInfo();
+                });
         MyItemsWarrior.setName("WarriorGroup");
         MyItemsWarrior.setPosition(0 + 0 * 75, 50);
         MyItemsWarrior.setScale(2f, 2f);

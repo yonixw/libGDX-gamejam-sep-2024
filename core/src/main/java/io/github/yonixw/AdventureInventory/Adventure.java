@@ -34,7 +34,7 @@ public class Adventure {
         addLoot(AllItems.Instance.Attack_OneHand_Club_L1, Main.NPCsSTRG[Main.NPC.Warrior.ordinal()], AllItems.ItemType.Any);
 
         lvl = 0;
-        newMonster();
+        newMonster(false);
     }
 
     Monster _current = null;
@@ -44,9 +44,19 @@ public class Adventure {
         return new String(Character.toChars(row * 16 + col));
     }
 
-    public void newMonster() {
+    public void newMonster(boolean ignored) {
+        if (ignored) {
+            MessageChat.Instance.addText(MessageChat.Instance.ft()
+                    .ul().li().s("Ignored monster.")
+                    .n());
+        }
         Monster m = All_Monsters[lvl][(int) (All_Monsters[lvl].length * Math.random())];
         _current = m;
+        MonsterInfo();
+    }
+
+    public void MonsterInfo() {
+        Monster m = _current;
         MessageChat.Instance.addText(MessageChat.Instance.ft()
                 .h1("[RED]" + xy(0, 1) + "[] Monster Spawned", 7).n()
                 .ul()
@@ -124,14 +134,14 @@ public class Adventure {
 
             for (AllItems.Item prize : _current.normalLoot) {
                 added++;
-                if (!addLoot(prize, Main.ElementsSTRG[AllItems.ItemType.Any.ordinal()], AllItems.ItemType.Any)) {
+                if (!addLoot(prize, Main.BagSTRG, AllItems.ItemType.Any)) {
                     stack_lost++;
                 }
             }
             if (rnd > 0.5f) {
                 for (AllItems.Item prize : _current.rareLoot) {
                     added++;
-                    if (!addLoot(prize, Main.ElementsSTRG[AllItems.ItemType.Any.ordinal()], AllItems.ItemType.Any)) {
+                    if (!addLoot(prize, Main.BagSTRG, AllItems.ItemType.Any)) {
                         stack_lost++;
                     }
                 }
@@ -139,7 +149,7 @@ public class Adventure {
             if (rnd > 0.9f) {
                 for (AllItems.Item prize : _current.extremeLoot) {
                     added++;
-                    if (!addLoot(prize, Main.ElementsSTRG[AllItems.ItemType.Any.ordinal()], AllItems.ItemType.Any)) {
+                    if (!addLoot(prize, Main.BagSTRG, AllItems.ItemType.Any)) {
                         stack_lost++;
                     }
                 }
@@ -170,7 +180,7 @@ public class Adventure {
             Main.Instance.stage.addAction(Actions.sequence(Actions.delay(0.5f), new Action() {
                 @Override
                 public boolean act(float delta) {
-                    newMonster();
+                    newMonster(false);
                     return true;
                 }
             }));
