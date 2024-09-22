@@ -12,7 +12,7 @@ public class Adventure {
                 .ul()
                 .li().s("Fight monsters").n()
                 .li().s("Collect loot").n()
-                .li().s("Pay workers").n()
+                .li().s("Pay NPCs").n()
                 .li().s("Find truths!").n()
                 .li().s("Defeat the dragon").n()
                 .s("Fight with Warrior by").n()
@@ -38,7 +38,7 @@ public class Adventure {
                 .h1("[RED]" + xy(0, 1) + "[] Monster Spawned", 7).n()
                 .ul()
                 .li().s(m.name).n()
-                .li().s(m.attack).s(1, 8, Color.YELLOW).s(" ").s(m.defense).s(1, 9, Color.YELLOW).s(" ").s(m.health).s(0, 3, Color.RED).n()
+                .li().s(m.attack).s(1, 8, Color.YELLOW).s(" ").s(m.health).s(0, 3, Color.RED).n()
                 .li().s("TYPE: " + colorType(m.myT))
         );
     }
@@ -53,7 +53,6 @@ public class Adventure {
 
         AllItems.ItemType myT;
         public int attack;
-        public int defense;
         public int health;
 
         AllItems.Item[] normalLoot;
@@ -113,8 +112,7 @@ public class Adventure {
             name = fcc(Color.GREEN, "Bloby Slime");
             myT = ItemType.Water;
 
-            attack = 0;
-            defense = 1;
+            attack = 1;
             health = 2;
 
             secret = "Check for types,\n[BROWN]Earth[] beats [BLUE]Water[].\nAlso, missplaced types will\nbe ruined! Mange carefully!";

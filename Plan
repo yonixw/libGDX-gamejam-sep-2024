@@ -1,3 +1,42 @@
+
+lvl 1 know all
+lvl 2 (unknown type)
+lvl 3 (unknown stats!)
+
+find all defenses
+    *2 or /2 on type
+Find all attack
+    *2 or /2 on type
+Find all health in food/potions
+
+if my atk > his atk
+    His health = -diff
+else
+    loose diff in potions/food
+        if too big, loose all items
+        
+
+pay magic to combine 
+    type+armor
+    armor+armor
+    weapon+weapon
+    food into potions
+    potion + potion
+    
+    cost: if any in lvl1: 5, lvl2: 10 lvl3: 20 
+    
+seller 
+    junk into money, take 5% (rounded up )
+
+
+
+
+
+
+---------------------------------------
+
+
+
 * The 4 Elements (Fire, Water, Earth, Air)
 * The truth can only be learned by marching forward
     The Problem
