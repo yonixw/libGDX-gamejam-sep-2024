@@ -97,7 +97,7 @@ public class Main extends InputAdapter implements ApplicationListener {
 
         Gdx.graphics.setSystemCursor(com.badlogic.gdx.graphics.Cursor.SystemCursor.None);
 
-        Adventure.Start();
+        (new Adventure()).Start();
     }
 
     private void CreateElement(int count, Group g) {
@@ -111,18 +111,6 @@ public class Main extends InputAdapter implements ApplicationListener {
             MyItems.setPosition(0, 0);
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
-
-            if (Math.random() > 0.25f) {
-                AllItems.Item item = ALL_ITEMS.ALL_LOOT[(int) (Math.random() * ALL_ITEMS.ALL_LOOT.length)];
-                ItemBox follow = (ItemBox) (MyItems.getChild(i));
-                Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
-                l.setName(item.name);
-                //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
-                l.setScale(2f, 2f);
-                l.follow(follow);
-
-                follow.myLoot = l;
-            }
 
             g.addActor(MyItems);
         }
