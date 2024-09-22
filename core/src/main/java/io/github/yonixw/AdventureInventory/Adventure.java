@@ -374,9 +374,42 @@ public class Adventure {
 
     }
 
-    // ==================================
-    //          Seller
-    // ==================================
+    public void CheckTypes() {
+        MessageChat.FastText ft = MessageChat.Instance.ft().ul();
+
+        AllItems.ItemType[] types = AllItems.ItemType.values();
+        for (int i = 0; i < 4; i++) {
+            ItemGroups Storage = Main.ElementsSTRG[i];
+            int lost = 0;
+            for (Loot l : Storage.getLoots()) {
+                if (l.myVariation != types[i]) {
+                    lost++;
+                    unattachLoot(l);
+                }
+            }
+            if (lost > 0) {
+                ft.li().s(colorType(types[i])).s(" Mismatch!").n().li().s("Lost ").s(lost).s(" items").n();
+            }
+        }
+
+        ItemGroups Storage = Main.BagSTRG;
+        int lost = 0;
+        for (Loot l : Storage.getLoots()) {
+            if (l.myVariation != AllItems.ItemType.Any) {
+                lost++;
+                unattachLoot(l);
+            }
+        }
+        if (lost > 0) {
+            ft.li().s("Garbage Mismatch!").n().li().s("Lost ").s(lost).s(" items").n();
+        }
+
+        MessageChat.Instance.addText(ft);
+    }
+
+// ==================================
+//          Seller
+// ==================================
     public void Sell() {
         if (Main.Cursor.dragLoot != null) {
             MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to act!").n());

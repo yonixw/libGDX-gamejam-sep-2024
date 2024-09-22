@@ -106,6 +106,7 @@ public class ItemBox extends Actor implements IClickable {
             myLoot = _lastDragLoot;
             Main.Cursor.dragLoot = null;
             myLoot.follow(this);
+            Adventure.Instance.CheckTypes();
         }
         return true;
     }
@@ -122,6 +123,7 @@ public class ItemBox extends Actor implements IClickable {
             _lastEnterBox.myLoot = Main.Cursor.dragLoot;
             Main.Cursor.dragLoot = null;
             _lastEnterBox.myLoot.follow(_lastEnterBox);
+            Adventure.Instance.CheckTypes();
         }
     }
 
