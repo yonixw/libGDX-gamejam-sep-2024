@@ -86,8 +86,8 @@ public class Adventure {
             return;
         }
 
-        float totalDef = 1;
-        float totalAttack = 1;
+        float totalDef = 0;
+        float totalAttack = 0;
         float totalHealth = 1;
         ArrayList<Loot> warriorLoot = Main.NPCsSTRG[Main.NPC.Warrior.ordinal()].getLoots();
         for (Loot l : warriorLoot) {
@@ -169,9 +169,10 @@ public class Adventure {
             float mDamage = _current.attack - totalAttack;
             if (mDamage > totalHealth) {
                 // loose random lot (based on lvl)
-
+                int lost = 0;
                 for (int i = 0; i < lvl; i++) {
                     if (!warriorLoot.isEmpty()) {
+                        lost++;
                         int rndI = (int) (Math.random() * warriorLoot.size());
                         unattachLoot(warriorLoot.get(rndI));
                         warriorLoot.remove(rndI);
@@ -180,25 +181,28 @@ public class Adventure {
                 MessageChat.Instance.addText(MessageChat.Instance.ft()
                         .h1("Warrior Lost").n()
                         .li().s("Your LVL: ").s(lvl).n()
-                        .ul().li().s("Lost " + lvl + " item").n()
+                        .ul().li().s("Lost " + lost + " item").n()
                         .s("You must go on")
                         .n());
                 lvl = Math.max(lvl - 1, 0);
             } else {
-                // tie, loose random 1
-                MessageChat.Instance.addText(MessageChat.Instance.ft()
-                        .h1("Warrior Tie").n()
-                        .ul().li().s("Lost 1 item").n()
-                        .s("You must go on")
-                        .n());
-
+                int lost = 0;
                 for (int i = 0; i < 1; i++) {
                     if (!warriorLoot.isEmpty()) {
+                        lost++;
                         int rndI = (int) (Math.random() * warriorLoot.size());
                         unattachLoot(warriorLoot.get(rndI));
                         warriorLoot.remove(rndI);
                     }
                 }
+
+                // tie, loose random 1
+                MessageChat.Instance.addText(MessageChat.Instance.ft()
+                        .h1("Warrior Tie").n()
+                        .ul().li().s("Lost " + lost + " item").n()
+                        .s("You must go on")
+                        .n());
+
             }
         }
     }
@@ -215,6 +219,8 @@ public class Adventure {
         AllItems.Item[] extremeLoot; // 10%
 
         String secret = "";
+
+        Runnable randomize;
     }
 
     public static String colorType(AllItems.ItemType type) {
