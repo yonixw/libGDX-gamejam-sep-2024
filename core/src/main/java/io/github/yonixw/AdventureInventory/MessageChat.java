@@ -12,6 +12,8 @@ public class MessageChat extends Actor {
     float _W, _H;
     public static final float wPercent = 0.25f;
 
+    public static MessageChat Instance;
+
     public MessageChat(float W, float H) {
         setTouchable(Touchable.disabled);
         _W = W;
@@ -21,7 +23,7 @@ public class MessageChat extends Actor {
         setBounds((1 - wPercent) * _W, 0, wPercent * _W, _H);
         setOrigin(Align.bottomRight);
 
-        setDebug(true);
+        Instance = this;
     }
 
     @Override

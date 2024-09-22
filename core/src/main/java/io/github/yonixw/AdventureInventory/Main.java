@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -57,7 +59,13 @@ public class Main extends InputAdapter implements ApplicationListener {
         fontDino = getNormalFont("fonts/bitmap/dinotype_bmf.fnt", 0.5f, Color.BLUE);
 
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
-        Gdx.input.setInputProcessor(stage);
+        //Gdx.input.setInputProcessor(stage);
+
+        Image bg = new Image(new Texture("BG.jpg"));
+        bg.setTouchable(Touchable.disabled);
+        bg.setScale(0.6f);
+        stage.addActor(bg);
+        bg.setPosition(60, -50);
 
         Group AllGroups = new Group();
         CreateElement(5, AllGroups);
@@ -85,7 +93,7 @@ public class Main extends InputAdapter implements ApplicationListener {
     }
 
     private void CreateElement(int count, Group g) {
-        String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "No Type"};
+        String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "Extra Space"};
         for (int i = 0; i < count; i++) {
             int w = 1 + (int) Math.floor(Math.random() * 5);
             int h = 1 + (int) Math.floor(Math.random() * 5);
@@ -96,8 +104,21 @@ public class Main extends InputAdapter implements ApplicationListener {
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
 
+            if (Math.random() > 0.25f) {
+                AllItems.Item item = ALL_ITEMS.ALL_LOOT[(int) (Math.random() * ALL_ITEMS.ALL_LOOT.length)];
+                ItemBox follow = (ItemBox) (MyItems.getChild(i));
+                Loot l = new Loot(lootRegions[item.row_col[0]][item.row_col[1]], item);
+                l.setName(item.name);
+                //Gdx.app.log("FOLLOW1/1", follow.getParent().getName() + "->" + follow.getName());
+                l.setScale(2f, 2f);
+                l.follow(follow);
+
+                follow.myLoot = l;
+            }
+
             g.addActor(MyItems);
         }
+
     }
 
     private void CreateSellers(Group g) {
