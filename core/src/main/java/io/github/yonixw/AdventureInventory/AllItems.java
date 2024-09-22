@@ -6,11 +6,11 @@ import java.util.stream.Stream;
 public class AllItems {
 
     public enum ItemType {
-        Any,
         Earth,
         Fire,
         Water,
-        Air
+        Air,
+        Any
     }
 
     public class Item {

@@ -46,13 +46,13 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     public static AllItems ALL_ITEMS = new AllItems();
 
-    public static ItemGroups[] FiveElem = new ItemGroups[5];
+    public static ItemGroups[] ElementsSTRG = new ItemGroups[5];
 
     public enum NPC {
         Warrior, Magic, Sell
     }
 
-    public static ItemGroups[] NPCs = new ItemGroups[3];
+    public static ItemGroups[] NPCsSTRG = new ItemGroups[3];
 
     @Override
     public void create() {
@@ -82,7 +82,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         //menuMusic.play();
 
         Group AllGroups = new Group();
-        CreateElement(5, AllGroups);
+        CreateElement(ElementsSTRG.length, AllGroups);
 
         CreateSellers(AllGroups);
         stage.addActor(AllGroups);
@@ -109,18 +109,21 @@ public class Main extends InputAdapter implements ApplicationListener {
     }
 
     private void CreateElement(int count, Group g) {
-        String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "Extra Space"};
+        String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "Garbage"};
+        int[][] elementSizes = new int[][]{
+            {3, 1}, {2, 2}, {1, 3}, {2, 3}, {3, 3}
+        };
         for (int i = 0; i < count; i++) {
             int w = 1 + (int) Math.floor(Math.random() * 5);
             int h = 1 + (int) Math.floor(Math.random() * 5);
             int y = (int) Math.floor(Math.random() * 100) + 100;
-            ItemGroups MyItems = new ItemGroups(systemRegions, i == 4 ? 3 : 4, 2, 1 + 2 * i);
-            MyItems.setName("ItemGroup_" + i);
+            ItemGroups MyItems = new ItemGroups(systemRegions, elementSizes[i][0], elementSizes[i][1], 1 + 2 * i);
+            MyItems.setName("ItemGroup_" + AllItems.ItemType.values()[i].toString());
             MyItems.setPosition(0, 0);
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
 
-            FiveElem[i] = MyItems;
+            ElementsSTRG[i] = MyItems;
 
             g.addActor(MyItems);
         }
@@ -157,9 +160,9 @@ public class Main extends InputAdapter implements ApplicationListener {
         g.addActor(MyItemsMagician);
         g.addActor(MyItemsMerchant);
 
-        NPCs[0] = MyItemsWarrior;
-        NPCs[1] = MyItemsMagician;
-        NPCs[2] = MyItemsMerchant;
+        NPCsSTRG[0] = MyItemsWarrior;
+        NPCsSTRG[1] = MyItemsMagician;
+        NPCsSTRG[2] = MyItemsMerchant;
     }
 
     @Override

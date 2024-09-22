@@ -63,7 +63,7 @@ public class ItemGroups extends Group {
         }
     }
 
-    public int lootSize() {
+    public int whSize() {
         return _w * _h;
     }
 
@@ -74,6 +74,16 @@ public class ItemGroups extends Group {
             }
         }
         return null;
+    }
+
+    public ArrayList<Loot> getLoots() {
+        ArrayList<Loot> result = new ArrayList<>();
+        for (ItemBox item : myChild) {
+            if (item.myLoot != null) {
+                result.add(item.myLoot);
+            }
+        }
+        return result;
     }
 
     MoveToAction latestMovment;

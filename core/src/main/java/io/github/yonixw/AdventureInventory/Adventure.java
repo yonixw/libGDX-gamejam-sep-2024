@@ -21,7 +21,7 @@ public class Adventure {
                 .s("any other npc [GREEN]").s(15, 11).s("[]").n()
         );
 
-        addLoot(AllItems.Instance.Attack_TwoHand_Sword_L1, Main.NPCs[Main.NPC.Warrior.ordinal()]);
+        addLoot(AllItems.Instance.Attack_OneHand_Club_L1, Main.NPCsSTRG[Main.NPC.Warrior.ordinal()]);
 
         newMonster(First_Monster_Lvl1);
     }

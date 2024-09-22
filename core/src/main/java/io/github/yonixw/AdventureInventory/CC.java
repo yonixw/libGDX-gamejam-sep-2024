@@ -124,6 +124,19 @@ public class CC extends CommandExecutor { // ConsoleCommands
 
     }
 
+    public void loots() {
+        for (ItemGroups ig : Main.ElementsSTRG) {
+            for (Loot l : ig.getLoots()) {
+                console.log(ig.getName() + " -> " + l._myItem.name + "(" + l._follow.getName() + ")");
+            }
+        }
+        for (ItemGroups ig : Main.NPCsSTRG) {
+            for (Loot l : ig.getLoots()) {
+                console.log(ig.getName() + " -> " + l._myItem.name + "(" + l._follow.getName() + ")");
+            }
+        }
+    }
+
     public void credit() {
         console.log(Gdx.files.local("CREDIT.txt").readString());
     }
