@@ -2,6 +2,7 @@ package io.github.yonixw.AdventureInventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,12 +33,21 @@ public class Cursor extends Actor {
 
     }
 
+    boolean musidStarted = false;
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
         Vector3 mousePos = getStage().getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         boolean mouseLeftClick = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+        if (mouseLeftClick && musidStarted == false) {
+            musidStarted = true;
+            Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("BG_MUSIC.mp3"));
+            menuMusic.setLooping(true);
+            menuMusic.setVolume(0.02f);
+            menuMusic.play();
+        }
 
         // Gdx.graphics.getHeight()
         setX(mousePos.x);
