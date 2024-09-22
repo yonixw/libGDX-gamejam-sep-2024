@@ -57,8 +57,17 @@ public class MessageChat extends Actor {
             return s(row, col, 1);
         }
 
+        public FastText s(int row, int col, Color c) {
+            return s("[#" + c + "]").s(row, col, 1).s("[]");
+        }
+
         public FastText s(String str) {
             sb.append(str);
+            return this;
+        }
+
+        public FastText s(int i) {
+            sb.append(i);
             return this;
         }
 
@@ -67,19 +76,23 @@ public class MessageChat extends Actor {
             return this;
         }
 
-        public FastText cntr(String str, int count) {
-            if (str.length() >= count - 1) {
+        public FastText cntr(String str, int count, int ignoreCount) {
+            if (str.length() - ignoreCount >= count - 1) {
                 return s(str.substring(0, count));
             } else {
-                int left = (count - str.length());
+                int left = (count - str.length() + ignoreCount);
                 int diff1 = left / 2;
                 return s(0, 0, diff1).s(str).s(0, 0, left - diff1);
             }
         }
 
         public FastText h1(String str) {
+            return h1(str, 0);
+        }
+
+        public FastText h1(String str, int ignoreCount) {
             return s(12, 9).s(12, 13, 24).s(11, 11).n()
-                    .s(11, 10).cntr(str, 24).s(11, 10).n()
+                    .s(11, 10).cntr(str, 24, ignoreCount).s(11, 10).n()
                     .s(13, 3).s(12, 13, 24).s(11, 13);
         }
 
@@ -98,7 +111,7 @@ public class MessageChat extends Actor {
         }
 
         public FastText li() {
-            return s(listIndex[0], listIndex[1]);
+            return s(listIndex[0], listIndex[1]).s(" ");
         }
 
         @Override

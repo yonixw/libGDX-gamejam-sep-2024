@@ -124,6 +124,10 @@ public class CC extends CommandExecutor { // ConsoleCommands
 
     }
 
+    public void credit() {
+        console.log(Gdx.files.local("CREDIT.txt").readString());
+    }
+
     public void q() {
         Gdx.app.log("Hi!", "I am your friendly console");
         console.log("Hi! I am your friendly console");

@@ -28,7 +28,7 @@ public class ItemGroups extends Group {
 
     private int _w, _h;
 
-    ArrayList<Actor> myChild = new ArrayList<Actor>();
+    ArrayList<ItemBox> myChild = new ArrayList<ItemBox>();
 
     public final static int PIXELS = 16;
     public final static Color AlphaWhite = Color.WHITE.mul(1, 1, 1, 0.7f);
@@ -55,12 +55,25 @@ public class ItemGroups extends Group {
 
         for (int wx = 0; wx < _w; wx++) {
             for (int hy = 0; hy < _h; hy++) {
-                Actor ax = new ItemBox(myGroupTx[3], myElement, sysTx[3][8]);
+                ItemBox ax = new ItemBox(myGroupTx[3], myElement, sysTx[3][8]);
                 ax.setName("[" + hy + "," + wx + "]");
                 myChild.add(ax);
                 addActor(ax);
             }
         }
+    }
+
+    public int lootSize() {
+        return _w * _h;
+    }
+
+    public ItemBox firstEmpty() {
+        for (ItemBox item : myChild) {
+            if (item.myLoot == null) {
+                return item;
+            }
+        }
+        return null;
     }
 
     MoveToAction latestMovment;

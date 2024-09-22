@@ -46,6 +46,14 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     public static AllItems ALL_ITEMS = new AllItems();
 
+    public static ItemGroups[] FiveElem = new ItemGroups[5];
+
+    public enum NPC {
+        Warrior, Magic, Sell
+    }
+
+    public static ItemGroups[] NPCs = new ItemGroups[3];
+
     @Override
     public void create() {
         Instance = this;
@@ -112,6 +120,8 @@ public class Main extends InputAdapter implements ApplicationListener {
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
 
+            FiveElem[i] = MyItems;
+
             g.addActor(MyItems);
         }
 
@@ -146,6 +156,10 @@ public class Main extends InputAdapter implements ApplicationListener {
         g.addActor(MyItemsWarrior);
         g.addActor(MyItemsMagician);
         g.addActor(MyItemsMerchant);
+
+        NPCs[0] = MyItemsWarrior;
+        NPCs[1] = MyItemsMagician;
+        NPCs[2] = MyItemsMerchant;
     }
 
     @Override
