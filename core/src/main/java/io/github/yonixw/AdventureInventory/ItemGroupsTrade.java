@@ -14,10 +14,12 @@ public class ItemGroupsTrade extends ItemGroups {
     public ItemGroupsTrade(TextureRegion[][] sysTx, int w, int h, int type, TextureRegion header, Runnable clicked) {
         super(sysTx, w, h, type);
         _w = w;
-        TextShift = 32;
 
-        img = new Image(header);
-        addActor(img);
+        if (header != null) {
+            img = new Image(header);
+            addActor(img);
+            TextShift = 32;
+        }
 
         ok = new OkButton(clicked, Main.Instance.systemRegions[6][6]);
         addActor(ok);
@@ -27,10 +29,12 @@ public class ItemGroupsTrade extends ItemGroups {
     @Override
     protected void drawChildren(Batch batch, float parentAlpha) {
 
-        img.setScale(getScaleX());
-        ok.setScale(getScaleX());
-        img.setPosition(getX() + TextShift, getY());
+        if (img != null) {
+            img.setScale(getScaleX());
+            img.setPosition(getX() + TextShift, getY());
+        }
 
+        ok.setScale(getScaleX());
         ok.setPosition(getX() + (_w + 0.5f) * getScaleX() * 16, getY() - 0.25f * TextShift);
 
         super.drawChildren(batch, parentAlpha);

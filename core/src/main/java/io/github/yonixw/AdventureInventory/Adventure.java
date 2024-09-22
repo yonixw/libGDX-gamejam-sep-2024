@@ -80,9 +80,19 @@ public class Adventure {
         return matrix[warrior.ordinal()][monster.ordinal()];
     }
 
+    public void ClearBag() {
+        ArrayList<Loot> bagLoot = Main.BagSTRG.getLoots();
+        for (Loot l : bagLoot) {
+            unattachLoot(l);
+        }
+        MessageChat.Instance.addText(MessageChat.Instance.ft()
+                .ul().li().s("Cleared " + bagLoot.size() + " items")
+                .n());
+    }
+
     public void WarriorAttack() {
         if (Main.Cursor.dragLoot != null) {
-            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to do it!"));
+            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to do it!").n());
             return;
         }
 

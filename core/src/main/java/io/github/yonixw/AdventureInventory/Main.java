@@ -46,7 +46,9 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     public static AllItems ALL_ITEMS = new AllItems();
 
-    public static ItemGroups[] ElementsSTRG = new ItemGroups[5];
+    public static ItemGroups[] ElementsSTRG = new ItemGroups[4];
+
+    public static ItemGroups BagSTRG;
 
     public enum NPC {
         Warrior, Magic, Sell
@@ -85,6 +87,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         CreateElement(ElementsSTRG.length, AllGroups);
 
         CreateSellers(AllGroups);
+        CreateBag(AllGroups);
         stage.addActor(AllGroups);
 
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
@@ -127,6 +130,24 @@ public class Main extends InputAdapter implements ApplicationListener {
 
             g.addActor(MyItems);
         }
+
+    }
+
+    private void CreateBag(Group g) {
+        int w = 1 + (int) Math.floor(Math.random() * 5);
+        int h = 1 + (int) Math.floor(Math.random() * 5);
+        int y = (int) Math.floor(Math.random() * 100) + 100;
+        ItemGroupsTrade MyItems = new ItemGroupsTrade(systemRegions, 3, 3, 1 + 2 * 4, null, () -> {
+            Adventure.Instance.ClearBag();
+        });
+        MyItems.setName("ItemGroup_" + "BAG");
+        MyItems.setPosition(0, 0);
+        MyItems.setScale(2f, 2f);
+        MyItems.Title = "Garbage";
+
+        BagSTRG = MyItems;
+
+        g.addActor(MyItems);
 
     }
 
