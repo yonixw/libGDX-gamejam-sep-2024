@@ -252,6 +252,11 @@ public class Adventure {
                     stack_lost++;
                 }
                 added++;
+                if (!addLoot(AllItems.Instance.ALL_BLOBS[AllItems.ItemType.Air.ordinal()], Main.ElementsSTRG[AllItems.ItemType.Air.ordinal()],
+                        AllItems.ItemType.Air)) {
+                    stack_lost++;
+                }
+                added++;
 
                 for (AllItems.Item loot : new AllItems.Item[]{
                     AllItems.Instance.Attack_OneHand_Club_L2,
@@ -495,7 +500,7 @@ public class Adventure {
         String secret = "";
     }
 
-    public Monster First_Monster_Lvl0 = new Monster() {
+    public Monster M1_L0 = new Monster() {
         {
             name = fcc(Color.GREEN, "Bloby Slime");
             myT = ItemType.Water;
@@ -506,44 +511,157 @@ public class Adventure {
         }
     };
 
-    public Monster[] ALL_Lvl0 = new Monster[]{
-        First_Monster_Lvl0
+    public Monster M2_L0 = new Monster() {
+        {
+            name = fcc(Color.RED, "Fire Lizard");
+            myT = ItemType.Fire;
+
+            attack = 1;
+
+            secret = "I hate " + colorType(ItemType.Earth) + " or\n" + colorType(ItemType.Water) + " but love\n" + colorType(ItemType.Fire);
+        }
     };
 
-    public Monster SLime_Lvl1 = new Monster() {
+    public Monster M3_L0 = new Monster() {
         {
-            name = fcc(Color.GREEN, "Jelly Slime");
+            name = fcc(Color.BROWN, "Earth Worm");
+            myT = ItemType.Earth;
+
+            attack = 1;
+
+            secret = "I run from " + colorType(ItemType.Water) + "\nBut fights with " + colorType(ItemType.Fire);
+        }
+    };
+
+    public Monster M4_L0 = new Monster() {
+        {
+            name = fcc(Color.WHITE, "L. Ghost");
+            myT = ItemType.Air;
+
+            attack = 1;
+
+            secret = "I love cold\nplaces. Very!";
+        }
+    };
+
+    public Monster[] ALL_Lvl0 = new Monster[]{
+        M1_L0, M2_L0, M3_L0, M4_L0};
+
+    // ==================================
+    public Monster M1_L1 = new Monster() {
+        {
+            name = fcc(Color.GREEN, "Bad Fish");
             myT = ItemType.Water;
+
+            attack = 4;
+
+            secret = "Your health will\nprevent full and\nutter lost!";
+        }
+    };
+
+    public Monster M2_L1 = new Monster() {
+        {
+            name = fcc(Color.RED, "Giant Lizard");
+            myT = ItemType.Fire;
 
             attack = 5;
 
-            secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
+            secret = "Use armor for\ndefense from ATK";
+        }
+    };
+
+    public Monster M3_L1 = new Monster() {
+        {
+            name = fcc(Color.BROWN, "Rat");
+            myT = ItemType.Earth;
+
+            attack = 4;
+
+            secret = "Fuse for \nmultipliers!";
+        }
+    };
+
+    public Monster M4_L1 = new Monster() {
+        {
+            name = fcc(Color.WHITE, "B. Ghost");
+            myT = ItemType.Air;
+
+            attack = 5;
+
+            secret = "Only elements can\nbe on elements!";
         }
     };
 
     public Monster[] ALL_Lvl1 = new Monster[]{
-        SLime_Lvl1
+        M1_L1, M2_L1, M3_L1, M4_L1
     };
 
-    public Monster Slime_Lvl2 = new Monster() {
+    // ==================================
+    public Monster M1_L2 = new Monster() {
         {
-            name = fcc(Color.GREEN, "Poison Slime");
+            name = fcc(Color.GREEN, "Saw Fish");
             myT = ItemType.Water;
 
-            attack = 7;
+            attack = 11;
 
-            secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
+            secret = "Lif is messy\nlike this game.";
+        }
+    };
+
+    public Monster M2_L2 = new Monster() {
+        {
+            name = fcc(Color.RED, "Fir Hog");
+            myT = ItemType.Fire;
+
+            attack = 10;
+
+            secret = "Randomness is\neverywhere\nso just learn\nto process it.";
+        }
+    };
+
+    public Monster M3_L2 = new Monster() {
+        {
+            name = fcc(Color.BROWN, "Spike Tree");
+            myT = ItemType.Earth;
+
+            attack = 9;
+
+            secret = "Friends\nare you greatest\nassets.";
+        }
+    };
+
+    public Monster M4_L2 = new Monster() {
+        {
+            name = fcc(Color.WHITE, "Legend Bird");
+            myT = ItemType.Air;
+
+            attack = 8;
+
+            secret = "Finishing stuff\nis fun so\nmake projects\nbite sized.";
         }
     };
 
     public Monster[] ALL_Lvl2 = new Monster[]{
-        Slime_Lvl2
+        M1_L2, M2_L2, M3_L2, M4_L2
+    };
+
+    // ==================================
+    public Monster M0_L3 = new Monster() {
+        {
+            name = fcc(Color.RED, xy(0, 12) + " Scorch Dragon");
+            myT = ItemType.Fire;
+
+            attack = 25;
+
+            secret = "The process is the\nmost important\npart. But only\nafter it you\ncan enjoy it.\nThe ultimate\ntruth to\nachieve\n\nThanks for playing.\n[THE END]";
+        }
     };
 
     public Monster[] ALL_Lvl3 = new Monster[]{
-        Slime_Lvl2
+        M0_L3
     };
 
+    // ==================================
     public Monster[][] All_Monsters = new Monster[][]{
         ALL_Lvl0, ALL_Lvl1, ALL_Lvl2, ALL_Lvl3
     };
