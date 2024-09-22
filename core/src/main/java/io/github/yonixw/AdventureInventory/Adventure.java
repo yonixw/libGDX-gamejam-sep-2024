@@ -40,10 +40,83 @@ public class Adventure {
     Monster _current = null;
     int lvl = 0; // 0=Welcom,1,2,3=Dragon
 
+    // ==================================
+    //          Utils
+    // ==================================
+    public static String colorType(AllItems.ItemType type) {
+        String result = "";
+        switch (type) {
+            case Air:
+                result += xy(15, 7) + " Air";
+                break;
+            case Fire:
+                result += fcc(Color.RED, "Fire");
+                break;
+            case Earth:
+                result += fcc(Color.BROWN, "Earth");
+                break;
+            case Water:
+                result += fcc(Color.CYAN, "Water");
+                break;
+            case Any:
+                result += xy(2, 10) + " Generic";
+                break;
+            default:
+                result += "Unkown Type";
+        }
+        return result;
+    }
+
+    public static String fcc(Color c, String s) {
+        // fast color
+        return "[#" + c + "]" + s + "[]";
+    }
+
+    public boolean addLoot(AllItems.Item item, ItemGroups group, AllItems.ItemType type) {
+        ItemBox firstEmpty = group.firstEmpty();
+        if (firstEmpty == null) {
+            // TODO animation of drop
+            return false;
+        }
+
+        Loot l = new Loot(type, item);
+        l.setName(item.name);
+        l.setScale(2f, 2f);
+        l.follow(firstEmpty);
+
+        firstEmpty.myLoot = l;
+        return true;
+    }
+
+    public Loot unattachLoot(Loot l) {
+        ItemBox f = (ItemBox) l._follow;
+        f.myLoot = null;
+        l.follow(null);
+
+        return l;
+    }
+
     public static String xy(int row, int col) {
         return new String(Character.toChars(row * 16 + col));
     }
 
+    public void ClearBag() {
+        ArrayList<Loot> bagLoot = Main.BagSTRG.getLoots();
+        for (Loot l : bagLoot) {
+            unattachLoot(l);
+        }
+        MessageChat.Instance.addText(MessageChat.Instance.ft()
+                .ul().li().s("Cleared " + bagLoot.size() + " items")
+                .n());
+    }
+
+    public void AnimateFallingLoot(Loot l) {
+
+    }
+
+    // ==================================
+    //          Warriot - Fight
+    // ==================================
     public void newMonster(boolean ignored) {
         if (ignored) {
             MessageChat.Instance.addText(MessageChat.Instance.ft()
@@ -88,16 +161,6 @@ public class Adventure {
             return 1;
         }
         return matrix[warrior.ordinal()][monster.ordinal()];
-    }
-
-    public void ClearBag() {
-        ArrayList<Loot> bagLoot = Main.BagSTRG.getLoots();
-        for (Loot l : bagLoot) {
-            unattachLoot(l);
-        }
-        MessageChat.Instance.addText(MessageChat.Instance.ft()
-                .ul().li().s("Cleared " + bagLoot.size() + " items")
-                .n());
     }
 
     public void WarriorAttack() {
@@ -227,6 +290,37 @@ public class Adventure {
         }
     }
 
+    // ==================================
+    //          Magicion
+    // ==================================
+    public void DoMagic() {
+        // food and potion
+        // potion and potion
+        // weapon and blob
+        // 
+
+    }
+
+    // ==================================
+    //          Seller
+    // ==================================
+    public void Sell() {
+        if (Main.Cursor.dragLoot != null) {
+            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to do it!").n());
+            return;
+        }
+
+        int totalMoney = 0;
+        ArrayList<Loot> sellLoot = Main.NPCsSTRG[Main.NPC.Sell.ordinal()].getLoots();
+        for (Loot l : sellLoot) {
+            totalMoney += l._myItem.money;
+        }
+
+    }
+
+    // ==================================
+    //          Monsters Collection 
+    // ==================================
     public class Monster {
 
         public String name;
@@ -241,63 +335,6 @@ public class Adventure {
         String secret = "";
 
         Runnable randomize;
-    }
-
-    public static String colorType(AllItems.ItemType type) {
-        String result = "";
-        switch (type) {
-            case Air:
-                result += xy(15, 7) + " Air";
-                break;
-            case Fire:
-                result += fcc(Color.RED, "Fire");
-                break;
-            case Earth:
-                result += fcc(Color.BROWN, "Earth");
-                break;
-            case Water:
-                result += fcc(Color.CYAN, "Water");
-                break;
-            case Any:
-                result += xy(2, 10) + " Generic";
-                break;
-            default:
-                result += "Unkown Type";
-        }
-        return result;
-    }
-
-    public static String fcc(Color c, String s) {
-        // fast color
-        return "[#" + c + "]" + s + "[]";
-    }
-
-    public boolean addLoot(AllItems.Item item, ItemGroups group, AllItems.ItemType type) {
-        ItemBox firstEmpty = group.firstEmpty();
-        if (firstEmpty == null) {
-            // TODO animation of drop
-            return false;
-        }
-
-        Loot l = new Loot(type, item);
-        l.setName(item.name);
-        l.setScale(2f, 2f);
-        l.follow(firstEmpty);
-
-        firstEmpty.myLoot = l;
-        return true;
-    }
-
-    public Loot unattachLoot(Loot l) {
-        ItemBox f = (ItemBox) l._follow;
-        f.myLoot = null;
-        l.follow(null);
-
-        return l;
-    }
-
-    public void AnimateFallingLoot(Loot l) {
-
     }
 
     public Monster First_Monster_Lvl0 = new Monster() {
