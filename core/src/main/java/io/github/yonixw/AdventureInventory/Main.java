@@ -96,6 +96,8 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage.addActor(Cursor);
 
         Gdx.graphics.setSystemCursor(com.badlogic.gdx.graphics.Cursor.SystemCursor.None);
+
+        Adventure.Start();
     }
 
     private void CreateElement(int count, Group g) {

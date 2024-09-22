@@ -34,9 +34,16 @@ public class MessageChat extends Actor {
         //setBounds(3 * _W / 4, 0, _W / 4, _H);
     }
 
+    public FastText ft() {
+        return new FastText();
+    }
+
     public class FastText {
 
         StringBuilder sb = new StringBuilder();
+
+        public FastText() {
+        }
 
         public FastText s(int row, int col, int repeat) {
             char[] c = Character.toChars(row * 16 + col);
@@ -132,10 +139,8 @@ public class MessageChat extends Actor {
 
         GlyphLayout gl = new GlyphLayout();
         gl.setText(Main.fontDino, myData);
-        for (int i = 0; i < 20; i++) {
 
-            Main.fontDino.draw(batch, gl, getX(), getY() + (i + 1) * gl.height);
-        }
+        Main.fontDino.draw(batch, gl, getX(), getY() + gl.height);
 
         //Gdx.app.log("MSG C", getX() + "," + getY());
     }

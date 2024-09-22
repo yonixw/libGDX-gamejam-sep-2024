@@ -26,6 +26,8 @@ public class AllItems {
 
     }
 
+    public static AllItems Instance;
+
     // ======================================
     public Item Potion_Big = new Item() {
         {
@@ -423,6 +425,7 @@ public class AllItems {
         populateFoods();
         populateGarbage();
         populateAllLoot();
+        Instance = this;
     }
 
 }
