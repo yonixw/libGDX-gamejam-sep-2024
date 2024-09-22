@@ -44,6 +44,32 @@ public class MessageChat extends Actor {
             return s(row, col, 1);
         }
 
+        public FastText s(String str) {
+            sb.append(str);
+            return this;
+        }
+
+        public FastText n() {
+            sb.append("\n");
+            return this;
+        }
+
+        public FastText cntr(String str, int count) {
+            if (str.length() >= count - 1) {
+                return s(str.substring(0, count));
+            } else {
+                int left = (count - str.length());
+                int diff1 = left / 2;
+                return s(0, 0, diff1).s(str).s(0, 0, left - diff1);
+            }
+        }
+
+        public FastText h1(String str) {
+            return s(12, 9).s(12, 13, 24).s(11, 11).n()
+                    .s(11, 10).cntr(str, 24).s(11, 10).n()
+                    .s(13, 3).s(12, 13, 24).s(11, 13);
+        }
+
         @Override
         public String toString() {
             return sb.toString();
@@ -55,11 +81,11 @@ public class MessageChat extends Actor {
     public void draw(Batch batch, float parentAlpha) {
 
         FastText f = new FastText();
-
-        f.s(12, 9).s(12, 13, 24).s(11, 11);
+        f.h1("Adventure Start:");
+        // 1 + 24 + 1 
 
         GlyphLayout gl = new GlyphLayout();
-        gl.setText(Main.fontDino, f.toString(), getColor(), getWidth(), Align.topLeft, true);
+        gl.setText(Main.fontDino, f.toString());
         Main.fontDino.draw(batch, gl, getX(), getY() + gl.height);
 
         //Gdx.app.log("MSG C", getX() + "," + getY());
