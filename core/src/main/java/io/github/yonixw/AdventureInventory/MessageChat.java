@@ -1,8 +1,11 @@
 package io.github.yonixw.AdventureInventory;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Align;
@@ -80,8 +83,25 @@ public class MessageChat extends Actor {
 
     }
 
+    ShapeRenderer shapeRenderer;
+    Color fill = Color.BLACK.mul(1, 1, 1, 0.7f);
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
+
+        batch.end();
+        if (shapeRenderer == null) {
+            shapeRenderer = new ShapeRenderer();
+            shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+        }
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(fill);
+        shapeRenderer.rect(getX(), 0, _W, _H);
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+        batch.begin();
 
         FastText f = new FastText();
         f.h1("Adventure Start:");
@@ -89,7 +109,10 @@ public class MessageChat extends Actor {
 
         GlyphLayout gl = new GlyphLayout();
         gl.setText(Main.fontDino, f.toString());
-        Main.fontDino.draw(batch, gl, getX(), getY() + gl.height);
+        for (int i = 0; i < 20; i++) {
+
+            Main.fontDino.draw(batch, gl, getX(), getY() + (i + 1) * gl.height);
+        }
 
         //Gdx.app.log("MSG C", getX() + "," + getY());
     }
