@@ -1,6 +1,5 @@
 package io.github.yonixw.AdventureInventory;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -38,3 +37,4 @@ public class DebugBox extends Actor {
         }
 
     }
+}
