@@ -185,6 +185,10 @@ public class Adventure {
         return matrix[warrior.ordinal()][monster.ordinal()];
     }
 
+    public AllItems.Item randomItem(AllItems.Item[] items) {
+        return items[(int) (Math.random() * items.length)];
+    }
+
     public void WarriorAttack() {
         if (Main.Cursor.dragLoot != null) {
             MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to act!").n());
@@ -214,32 +218,53 @@ public class Adventure {
         if (totalAttack >= _current.attack) {
             //won
             float rnd = (float) Math.random();
-            int added = 0;
             int stack_lost = 0;
+            int added = 0;
 
-            for (AllItems.Item prize : _current.normalLoot) {
-                added++;
-                if (!addLoot(prize, Main.BagSTRG, AllItems.ItemType.Any)) {
+            if (lvl > 0) {
+                added = 3;
+                AllItems.Item prize1 = randomItem(Math.random() > 0.5f ? AllItems.Instance.getGarbage(lvl) : AllItems.Instance.getMoney(lvl));
+                if (!addLoot(prize1, Main.BagSTRG, AllItems.ItemType.Any)) {
                     stack_lost++;
                 }
-            }
-            if (rnd > 0.5f) {
-                for (AllItems.Item prize : _current.rareLoot) {
-                    added++;
-                    if (!addLoot(prize, Main.BagSTRG, AllItems.ItemType.Any)) {
-                        stack_lost++;
-                    }
-                }
-            }
-            if (rnd > 0.9f) {
-                for (AllItems.Item prize : _current.extremeLoot) {
-                    added++;
-                    if (!addLoot(prize, Main.BagSTRG, AllItems.ItemType.Any)) {
-                        stack_lost++;
-                    }
-                }
-            }
 
+                AllItems.Item prize2 = randomItem(Math.random() > 0.5f ? AllItems.Instance.getHealth(lvl) : AllItems.Instance.getFood(lvl));
+                if (!addLoot(prize2, Main.BagSTRG, AllItems.ItemType.Any)) {
+                    stack_lost++;
+                }
+
+                AllItems.Item prize3 = randomItem(Math.random() > 0.5f ? AllItems.Instance.getAttack(lvl) : AllItems.Instance.getDef(lvl));
+                if (!addLoot(prize3, Main.BagSTRG, AllItems.ItemType.Any)) {
+                    stack_lost++;
+                }
+
+                if (Math.random() > 0.5f) {
+                    added++;
+                    if (!addLoot(AllItems.Instance.ALL_BLOBS[_current.myT.ordinal()], Main.ElementsSTRG[_current.myT.ordinal()],
+                            _current.myT)) {
+                        stack_lost++;
+                    }
+                }
+
+            } else {
+                if (!addLoot(AllItems.Instance.ALL_BLOBS[_current.myT.ordinal()], Main.ElementsSTRG[_current.myT.ordinal()],
+                        _current.myT)) {
+                    stack_lost++;
+                }
+                added++;
+
+                for (AllItems.Item loot : new AllItems.Item[]{
+                    AllItems.Instance.Attack_OneHand_Club_L2,
+                    randomItem(AllItems.Instance.LVL1_Loot_Money),
+                    randomItem(AllItems.Instance.LVL1_Loot_Money),
+                    randomItem(AllItems.Instance.LVL1_Loot_Food),
+                    randomItem(AllItems.Instance.GARBAGE_LOOTS),}) {
+                    added++;
+                    if (!addLoot(loot, Main.BagSTRG, AllItems.ItemType.Any)) {
+                        stack_lost++;
+                    }
+                }
+            }
             lvl = Math.min(lvl + 1, 3);
 
             MessageChat.FastText ft = MessageChat.Instance.ft()
@@ -467,13 +492,7 @@ public class Adventure {
         AllItems.ItemType myT;
         public int attack;
 
-        AllItems.Item[] normalLoot; // 100%
-        AllItems.Item[] rareLoot; // 50%
-        AllItems.Item[] extremeLoot; // 10%
-
         String secret = "";
-
-        Runnable randomize;
     }
 
     public Monster First_Monster_Lvl0 = new Monster() {
@@ -484,15 +503,6 @@ public class Adventure {
             attack = 1;
 
             secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
-
-            normalLoot = new AllItems.Item[]{
-                AllItems.Instance.Attack_OneHand_Club_L2,
-                AllItems.Instance.ALL_BLOBS[AllItems.ItemType.Air.ordinal()],
-                AllItems.Instance.FOOD_LOOTS[0],
-                AllItems.Instance.GARBAGE_LOOTS[0],
-                AllItems.Instance.Coin_Single, AllItems.Instance.Coin_Single,};
-            rareLoot = new AllItems.Item[0];
-            extremeLoot = new AllItems.Item[0];
         }
     };
 
@@ -502,21 +512,12 @@ public class Adventure {
 
     public Monster SLime_Lvl1 = new Monster() {
         {
-            name = fcc(Color.GREEN, "Jelly Slime");
+            name = fcc(Color.GREEN, "Bloby Slime");
             myT = ItemType.Water;
 
-            attack = 5;
+            attack = 1;
 
             secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
-
-            normalLoot = new AllItems.Item[]{
-                AllItems.Instance.Attack_OneHand_Club_L2,
-                AllItems.Instance.ALL_BLOBS[AllItems.ItemType.Air.ordinal()],
-                AllItems.Instance.FOOD_LOOTS[0],
-                AllItems.Instance.GARBAGE_LOOTS[0],
-                AllItems.Instance.Coin_Single, AllItems.Instance.Coin_Single,};
-            rareLoot = new AllItems.Item[0];
-            extremeLoot = new AllItems.Item[0];
         }
     };
 
@@ -526,21 +527,12 @@ public class Adventure {
 
     public Monster Slime_Lvl2 = new Monster() {
         {
-            name = fcc(Color.GREEN, "Poison Slime");
+            name = fcc(Color.GREEN, "Bloby Slime");
             myT = ItemType.Water;
 
-            attack = 15;
+            attack = 1;
 
             secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
-
-            normalLoot = new AllItems.Item[]{
-                AllItems.Instance.Attack_OneHand_Club_L2,
-                AllItems.Instance.ALL_BLOBS[AllItems.ItemType.Air.ordinal()],
-                AllItems.Instance.FOOD_LOOTS[0],
-                AllItems.Instance.GARBAGE_LOOTS[0],
-                AllItems.Instance.Coin_Single, AllItems.Instance.Coin_Single,};
-            rareLoot = new AllItems.Item[0];
-            extremeLoot = new AllItems.Item[0];
         }
     };
 

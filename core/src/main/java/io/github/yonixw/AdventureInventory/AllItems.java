@@ -92,8 +92,8 @@ public class AllItems {
             money = 25;
         }
     };
-    // ======================================
 
+    // ======================================
     public Item Gem_Silver = new Item() {
         {
             name = "Silver Gem";
@@ -380,6 +380,7 @@ public class AllItems {
             2, 1, 1, 2,
             -2, -2, -1
         };
+        int lvl1 = 0, lvl2 = 0, lvl3 = 0;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
                 if (row * 4 + col >= _names.length) {
@@ -395,10 +396,149 @@ public class AllItems {
                         money = (int) Math.ceil(Math.max(0, _health[_row * 4 + _col]) / 2f);
                     }
                 };
+
+                if (_health[_row * 4 + _col] >= 5) {
+                    lvl3++;
+                } else if (_health[_row * 4 + _col] > 1) {
+                    lvl2++;
+                } else {
+                    lvl1++;
+                }
+
+            }
+        }
+        LVL1_Loot_Food = new Item[lvl1];
+        LVL2_Loot_Food = new Item[lvl2];
+        LVL3_Loot_Food = new Item[lvl3];
+        for (Item it : FOOD_LOOTS) {
+            if (it.health >= 5) {
+                LVL3_Loot_Food[lvl3 - 1] = it;
+                lvl3--;
+            } else if (it.health > 1) {
+                LVL2_Loot_Food[lvl2 - 1] = it;
+                lvl2--;
+            } else {
+                LVL1_Loot_Food[lvl1 - 1] = it;
+                lvl1--;
             }
         }
     }
 
+    public Item[] getHealth(int lvl) {
+        lvl = Math.max(Math.min(lvl, 3), 1);
+        switch (lvl) {
+            case 1:
+                return LVL1_Loot_Health;
+            case 2:
+                return LVL2_Loot_Health;
+            case 3:
+                return LVL3_Loot_Health;
+        }
+        return null;
+    }
+
+    public Item[] getAttack(int lvl) {
+        lvl = Math.max(Math.min(lvl, 3), 1);
+        switch (lvl) {
+            case 1:
+                return LVL1_Loot_Attack;
+            case 2:
+                return LVL2_Loot_Attack;
+            case 3:
+                return LVL3_Loot_Attack;
+        }
+        return null;
+    }
+
+    public Item[] getDef(int lvl) {
+        lvl = Math.max(Math.min(lvl, 3), 1);
+        switch (lvl) {
+            case 1:
+                return LVL1_Loot_Def;
+            case 2:
+                return LVL2_Loot_Def;
+            case 3:
+                return LVL3_Loot_Def;
+        }
+        return null;
+    }
+
+    public Item[] getMoney(int lvl) {
+        lvl = Math.max(Math.min(lvl, 3), 1);
+        switch (lvl) {
+            case 1:
+                return LVL1_Loot_Money;
+            case 2:
+                return LVL2_Loot_Money;
+            case 3:
+                return LVL3_Loot_Money;
+        }
+        return null;
+    }
+
+    public Item[] getFood(int lvl) {
+        lvl = Math.max(Math.min(lvl, 3), 1);
+        switch (lvl) {
+            case 1:
+                return LVL1_Loot_Food;
+            case 2:
+                return LVL2_Loot_Food;
+            case 3:
+                return LVL3_Loot_Food;
+        }
+        return null;
+    }
+
+    public Item[] getGarbage(int lvl) {
+        return GARBAGE_LOOTS;
+    }
+
+    // =========================
+    // =========================
+    public Item[] LVL1_Loot_Health = new Item[]{
+        Potion_Cup
+    };
+    public Item[] LVL1_Loot_Attack = new Item[]{
+        Attack_TwoHand_Sword_L1, Attack_OneHand_Axe_L1, Attack_OneHand_Club_L1, Attack_OneHand_Mace_L1
+    };
+    public Item[] LVL1_Loot_Def = new Item[]{
+        Armor_Cloth, Armor_Copper
+    };
+    public Item[] LVL1_Loot_Money = new Item[]{
+        Coin_Single, Coin_Many, Chest_Wood, Chest_Silver
+    };
+    public Item[] LVL1_Loot_Food = null;
+// =========================
+    public Item[] LVL2_Loot_Health = new Item[]{
+        Potion_Small, Potion_Cup
+    };
+    public Item[] LVL2_Loot_Attack = new Item[]{
+        Attack_TwoHand_Sword_L2, Attack_OneHand_Axe_L2, Attack_OneHand_Club_L2, Attack_OneHand_Mace_L2
+    };
+    public Item[] LVL2_Loot_Def = new Item[]{
+        Armor_Steel, Armor_Gold
+    };
+    public Item[] LVL2_Loot_Money = new Item[]{
+        Coin_Many, Gem_Silver, Gem_Gold, Chest_Silver, Chest_Gold
+    };
+    public Item[] LVL2_Loot_Food = null;
+// ===============================
+    public Item[] LVL3_Loot_Health = new Item[]{
+        Potion_Small, Potion_Big
+    };
+    public Item[] LVL3_Loot_Attack = new Item[]{
+        Attack_TwoHand_Sword_L3, Attack_TwoHand_Axe_L3, Attack_OneHand_Club_L3, Attack_OneHand_Mace_L3
+    };
+    public Item[] LVL3_Loot_Def = new Item[]{
+        Armor_Gold, Armor_Diamond
+    };
+    public Item[] LVL3_Loot_Money = new Item[]{
+        Gem_Gold, Gem_Diamond, Chest_Gold, Chest_Diamond
+    };
+    public Item[] LVL3_Loot_Food = null;
+
+// =========================
+// =========================
     public Item[] ALL_LOOT;
 
     public void populateAllLoot() {
