@@ -83,6 +83,7 @@ public class CC extends CommandExecutor { // ConsoleCommands
                 console.log("Index " + GroupIndex + " Not found or not a Group!");
             } else {
                 DebugBox db = new DebugBox(x, y, w, h, s);
+                db.setName("Debug_for_" + GroupIndex);
                 ((Group) result[0]).addActor(db);
             }
         } catch (Exception e) {

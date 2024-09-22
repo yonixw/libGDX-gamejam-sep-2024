@@ -1,5 +1,6 @@
 package io.github.yonixw.AdventureInventory;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -18,14 +19,22 @@ public class DebugBox extends Actor {
 
         setTouchable(Touchable.disabled);
 
-        lateRemove = Actions.sequence(Actions.delay(5), Actions.removeActor());
-
         setDebug(true);
     }
 
     @Override
     public void act(float delta) {
-        lateRemove.act(delta);
-    }
+        super.act(delta);
 
-}
+        if (lateRemove == null) {
+            lateRemove = Actions.sequence(Actions.delay(5), new Action() {
+                @Override
+                public boolean act(float delta) {
+                    this.actor.remove();
+                    return true;
+                }
+            });
+            addAction(lateRemove);
+        }
+
+    }

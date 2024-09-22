@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 public class ItemGroups extends Group {
 
@@ -60,36 +61,43 @@ public class ItemGroups extends Group {
         }
     }
 
-    MoveToAction latestMovment;
+    SequenceAction latestMovment;
     final float marginMovementPrct = 0.05f;
     boolean move = false;
 
     @Override
     public void act(float delta) {
+        super.act(delta);
 
         if (move) {
-            if (latestMovment != null) {
-                latestMovment.act(delta);
+            boolean needNewOne = latestMovment == null;
+            if (!needNewOne) {
+                //needNewOne = latestMovment.act(delta);
             }
 
-            if (latestMovment == null || latestMovment.isComplete()) {
+            if (needNewOne) {
                 if (latestMovment != null) {
                     removeAction(latestMovment);
                 }
-                Gdx.app.log("GROUP", "Act");
-                // Main.WIDTH, Main.HEIGHT
 
-                Vector2 Target = new Vector2(
-                        -this.getWidth() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.WIDTH / 4,
-                        -this.getHeight() + ((float) Math.random() * (1f - marginMovementPrct)) * Main.HEIGHT / 4
-                );
-                latestMovment = new MoveToAction();
-                latestMovment.setPosition(Target.x, Target.y);
-                latestMovment.setDuration(5);
-                Gdx.app.log("GROUP-XY", Target.x + "," + Target.y);
-                Gdx.app.log("GROUP", getName() + ": "
-                        + latestMovment.getStartX() + "," + latestMovment.getStartY() + "=>"
-                        + latestMovment.getX() + "," + latestMovment.getY()
+                float _x = getX();
+                float _y = getY();
+                float _scale = Math.max(getScaleX(), getScaleY());
+                float _size = PIXELS * _scale;
+
+                latestMovment = Actions.sequence(
+                        Actions.sequence(
+                                Actions.moveTo(0, 0),
+                                Actions.delay(3)),
+                        Actions.sequence(
+                                Actions.moveTo(getParent().getWidth() - _size * (_w + 1), 0),
+                                Actions.delay(3)),
+                        Actions.sequence(
+                                Actions.moveTo(0, getParent().getHeight() - _size * (_h + 1)),
+                                Actions.delay(3)),
+                        Actions.sequence(
+                                Actions.moveTo(getParent().getWidth() - _size * (_w + 1), getParent().getHeight() - _size * (_h + 1)),
+                                Actions.delay(3))
                 );
 
                 addAction(latestMovment);

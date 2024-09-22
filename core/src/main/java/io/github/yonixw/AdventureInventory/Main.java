@@ -58,10 +58,9 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        CreateElement();
+        CreateElement(1);
 
-        CreateSellers();
-
+        //CreateSellers();
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
         mc.setName("MessageChat");
         stage.addActor(mc);
@@ -81,15 +80,15 @@ public class Main extends InputAdapter implements ApplicationListener {
         Gdx.graphics.setSystemCursor(com.badlogic.gdx.graphics.Cursor.SystemCursor.None);
     }
 
-    private void CreateElement() {
+    private void CreateElement(int count) {
         String[] TypeTitles = new String[]{"Earth", "Fire", "Water", "Air", "No Type"};
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < count; i++) {
             int w = 1 + (int) Math.floor(Math.random() * 5);
             int h = 1 + (int) Math.floor(Math.random() * 5);
             int y = (int) Math.floor(Math.random() * 100) + 100;
             ItemGroups MyItems = new ItemGroups(systemRegions, i == 4 ? 3 : 4, 2, 1 + 2 * i);
             MyItems.setName("ItemGroup_" + i);
-            MyItems.setPosition(0 + i * 75, y);
+            MyItems.setPosition(0, 100);
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
 
