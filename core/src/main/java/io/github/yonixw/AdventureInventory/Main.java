@@ -78,8 +78,8 @@ public class Main extends InputAdapter implements ApplicationListener {
 
         Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("BG_MUSIC.mp3"));
         menuMusic.setLooping(true);
-        menuMusic.setVolume(0.75f);
-        //menuMusic.play();
+        menuMusic.setVolume(0.02f);
+        menuMusic.play();
 
         Group AllGroups = new Group();
         CreateElement(ElementsSTRG.length, AllGroups);
@@ -136,7 +136,7 @@ public class Main extends InputAdapter implements ApplicationListener {
                 () -> {
                     Adventure.Instance.WarriorAttack();
                 },
-                 null);
+                null);
         MyItemsWarrior.setName("WarriorGroup");
         MyItemsWarrior.setPosition(0 + 0 * 75, 50);
         MyItemsWarrior.setScale(2f, 2f);
