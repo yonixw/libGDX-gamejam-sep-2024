@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -66,6 +67,11 @@ public class Main extends InputAdapter implements ApplicationListener {
         bg.setScale(0.6f);
         stage.addActor(bg);
         bg.setPosition(60, -50);
+
+        Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("BG_MUSIC.mp3"));
+        menuMusic.setLooping(true);
+        menuMusic.setVolume(0.75f);
+        //menuMusic.play();
 
         Group AllGroups = new Group();
         CreateElement(5, AllGroups);
