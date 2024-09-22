@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -61,19 +63,16 @@ public class ItemGroups extends Group {
         }
     }
 
-    SequenceAction latestMovment;
+    MoveToAction latestMovment;
     final float marginMovementPrct = 0.05f;
-    boolean move = false;
+    boolean move = true;
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
         if (move) {
-            boolean needNewOne = latestMovment == null;
-            if (!needNewOne) {
-                //needNewOne = latestMovment.act(delta);
-            }
+            boolean needNewOne = latestMovment == null || getActions().isEmpty();
 
             if (needNewOne) {
                 if (latestMovment != null) {
@@ -85,20 +84,15 @@ public class ItemGroups extends Group {
                 float _scale = Math.max(getScaleX(), getScaleY());
                 float _size = PIXELS * _scale;
 
-                latestMovment = Actions.sequence(
-                        Actions.sequence(
-                                Actions.moveTo(0, 0),
-                                Actions.delay(3)),
-                        Actions.sequence(
-                                Actions.moveTo(getParent().getWidth() - _size * (_w + 1), 0),
-                                Actions.delay(3)),
-                        Actions.sequence(
-                                Actions.moveTo(0, getParent().getHeight() - _size * (_h + 1)),
-                                Actions.delay(3)),
-                        Actions.sequence(
-                                Actions.moveTo(getParent().getWidth() - _size * (_w + 1), getParent().getHeight() - _size * (_h + 1)),
-                                Actions.delay(3))
-                );
+                float minX = -PIXELS;
+                float maxX = minX + Main.WIDTH / 4;
+                float minY = PIXELS * (_h + 1);
+                float maxY = minY + Main.HEIGHT / 4;
+
+                latestMovment = Actions.moveTo(
+                        minX + (float) Math.random() * (maxX - minX),
+                        minY + (float) Math.random() * (maxY - minY),
+                        5);
 
                 addAction(latestMovment);
             }

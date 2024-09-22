@@ -58,9 +58,9 @@ public class Main extends InputAdapter implements ApplicationListener {
         stage = new Stage(new FitViewport(WIDTH, HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
-        CreateElement(1);
+        CreateElement(5);
 
-        //CreateSellers();
+        CreateSellers();
         MessageChat mc = new MessageChat(WIDTH, HEIGHT);
         mc.setName("MessageChat");
         stage.addActor(mc);
@@ -88,7 +88,7 @@ public class Main extends InputAdapter implements ApplicationListener {
             int y = (int) Math.floor(Math.random() * 100) + 100;
             ItemGroups MyItems = new ItemGroups(systemRegions, i == 4 ? 3 : 4, 2, 1 + 2 * i);
             MyItems.setName("ItemGroup_" + i);
-            MyItems.setPosition(0, 100);
+            MyItems.setPosition(0, 0);
             MyItems.setScale(2f, 2f);
             MyItems.Title = TypeTitles[i];
 
