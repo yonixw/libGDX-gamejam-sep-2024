@@ -154,7 +154,7 @@ public class Adventure {
 
             // todo add money
             MessageChat.Instance.addText(
-                    ft
+                    ft.cntr(fcc(Color.RED, "TRUTH EARNED:"), 26, 7).n().s(_current.secret)
             );
 
             Main.Instance.stage.addAction(Actions.sequence(Actions.delay(0.5f), new Action() {
@@ -287,7 +287,7 @@ public class Adventure {
 
             attack = 1;
 
-            secret = "Check for types,\nAir beats only [BLUE]Water[].\nAlso, missplaced types will\nbe ruined! Be aware!";
+            secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
 
             normalLoot = new AllItems.Item[]{
                 AllItems.Instance.Attack_OneHand_Club_L2,
@@ -311,7 +311,7 @@ public class Adventure {
 
             attack = 5;
 
-            secret = "Check for types,\nAir beats only [BLUE]Water[].\nAlso, missplaced types will\nbe ruined! Be aware!";
+            secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
 
             normalLoot = new AllItems.Item[]{
                 AllItems.Instance.Attack_OneHand_Club_L2,
@@ -335,7 +335,7 @@ public class Adventure {
 
             attack = 15;
 
-            secret = "Check for types,\nAir beats only [BLUE]Water[].\nAlso, missplaced types will\nbe ruined! Be aware!";
+            secret = "Check for types,\nAir beats only " + colorType(ItemType.Water) + ".\nAlso, missplaced types will\nbe ruined! Be aware!";
 
             normalLoot = new AllItems.Item[]{
                 AllItems.Instance.Attack_OneHand_Club_L2,
