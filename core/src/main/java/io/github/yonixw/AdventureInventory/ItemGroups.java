@@ -79,20 +79,16 @@ public class ItemGroups extends Group {
                     removeAction(latestMovment);
                 }
 
-                float _x = getX();
-                float _y = getY();
-                float _scale = Math.max(getScaleX(), getScaleY());
-                float _size = PIXELS * _scale;
-
                 float minX = -PIXELS;
-                float maxX = minX + Main.WIDTH / 4;
+                float maxX = minX + (Main.WIDTH / 4 - PIXELS * (_w - 2)) * (1 - MessageChat.wPercent);
                 float minY = PIXELS * (_h + 1);
                 float maxY = minY + Main.HEIGHT / 4;
 
                 latestMovment = Actions.moveTo(
+                        //Math.random() > 0.5f ? minX : maxX,
                         minX + (float) Math.random() * (maxX - minX),
                         minY + (float) Math.random() * (maxY - minY),
-                        5);
+                        5f);
 
                 addAction(latestMovment);
             }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
 public class MessageChat extends Actor {
 
     float _W, _H;
-    final float wPercent = 0.25f;
+    public static final float wPercent = 0.25f;
 
     public MessageChat(float W, float H) {
         setTouchable(Touchable.disabled);
@@ -21,6 +21,7 @@ public class MessageChat extends Actor {
         setBounds((1 - wPercent) * _W, 0, wPercent * _W, _H);
         setOrigin(Align.bottomRight);
 
+        setDebug(true);
     }
 
     @Override
