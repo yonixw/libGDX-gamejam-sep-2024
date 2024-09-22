@@ -167,7 +167,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         MyItemsWarrior.setPosition(0 + 0 * 75, 50);
         MyItemsWarrior.setScale(2f, 2f);
         MyItemsWarrior.Title = "Warrior";
-        // ========= WARRIOR
+        // ========= Magic
         ItemGroupsTrade MyItemsMagician = new ItemGroupsTrade(systemRegions, 4, 1, 9, lootRegions[2][6], () -> {
             Gdx.app.log("CALLBACK", "2222222222222222");
         });
@@ -175,9 +175,9 @@ public class Main extends InputAdapter implements ApplicationListener {
         MyItemsMagician.setPosition(0 + 1 * 75, 150);
         MyItemsMagician.setScale(2f, 2f);
         MyItemsMagician.Title = "Wizard";
-        // ========= WARRIOR
+        // ========= Seller
         ItemGroupsTrade MyItemsMerchant = new ItemGroupsTrade(systemRegions, 5, 1, 9, lootRegions[2][7], () -> {
-            Gdx.app.log("CALLBACK", "33333333333333");
+            Adventure.Instance.Sell();
         });
         MyItemsMerchant.setName("MerchantGroup");
         MyItemsMerchant.setPosition(0 + 2 * 75, 200);

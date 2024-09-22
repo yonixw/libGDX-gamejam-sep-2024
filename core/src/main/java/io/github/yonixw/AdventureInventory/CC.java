@@ -141,6 +141,13 @@ public class CC extends CommandExecutor { // ConsoleCommands
         console.log(Gdx.files.local("CREDIT.txt").readString());
     }
 
+    public void logloot() {
+        Gdx.app.log("LOOT", "," + "name,attack,def,health,money");
+        for (AllItems.Item item : AllItems.Instance.ALL_LOOT) {
+            Gdx.app.log("LOOT", "," + item.name + "," + item.attack + "," + item.defense + "," + item.health + "," + item.money);
+        }
+    }
+
     public void q() {
         Gdx.app.log("Hi!", "I am your friendly console");
         console.log("Hi! I am your friendly console");

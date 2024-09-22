@@ -311,10 +311,43 @@ public class Adventure {
         }
 
         int totalMoney = 0;
-        ArrayList<Loot> sellLoot = Main.NPCsSTRG[Main.NPC.Sell.ordinal()].getLoots();
+        ItemGroups Storage = Main.NPCsSTRG[Main.NPC.Sell.ordinal()];
+        int storageCapacity = Storage.whSize();
+        ArrayList<Loot> sellLoot = Storage.getLoots();
         for (Loot l : sellLoot) {
             totalMoney += l._myItem.money;
+            unattachLoot(l);
         }
+
+        int cut = (int) Math.ceil(totalMoney * 0.05f);
+        int change = Math.max(0, totalMoney - cut);
+
+        int __left = change;
+        while (__left > 0 && Storage.getLoots().size() < storageCapacity) {
+            if (__left >= 25) {
+                addLoot(AllItems.Instance.Chest_Diamond, Storage, AllItems.ItemType.Any);
+                __left -= 25;
+            } else if (__left >= 15) {
+                addLoot(AllItems.Instance.Gem_Diamond, Storage, AllItems.ItemType.Any);
+                __left -= 15;
+            } else if (__left >= 10) {
+                addLoot(AllItems.Instance.Gem_Gold, Storage, AllItems.ItemType.Any);
+                __left -= 10;
+            } else if (__left >= 5) {
+                addLoot(AllItems.Instance.Coin_Many, Storage, AllItems.ItemType.Any);
+                __left -= 5;
+            } else if (__left >= 1) {
+                addLoot(AllItems.Instance.Coin_Single, Storage, AllItems.ItemType.Any);
+                __left -= 1;
+            }
+        }
+
+        MessageChat.Instance.addText(MessageChat.Instance.ft()
+                .h1("Trade").n()
+                .ul()
+                .li().s(totalMoney).s("$").n()
+                .li().s("-5% Fee: ").s(cut).s("$").n()
+                .n());
 
     }
 
