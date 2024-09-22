@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -51,9 +52,22 @@ public class Cursor extends Actor {
                 getScaleX(), getScaleY(), getRotation());
 
         if (dragLoot != null && dragLoot._myItem != null) {
-            _font.draw(batch, dragLoot._myItem.name, mousePos.x, mousePos.y - 20);
+            batch.setColor(color.r, color.g, color.b, parentAlpha);
+            AllItems.Item it = dragLoot._myItem;
+            GlyphLayout gl = new GlyphLayout(_font,
+                    MessageChat.Instance.ft()
+                            .s(it.name).n()
+                            .s(it.attack).s(1, 8, Color.YELLOW).s(" ")
+                            .s(it.defense).s(1, 9, Color.YELLOW).s(" ")
+                            .s(it.health).s(0, 3, Color.RED).s(" ")
+                            .s(it.money).s(2, 4, Color.GREEN).n()
+                            .s(Adventure.colorType(dragLoot.myVariation))
+                            .toString()
+            );
+            _font.draw(batch, gl, mousePos.x, mousePos.y - gl.height + 20);
         } else {
             _font.draw(batch, Math.round(mousePos.x) + "," + Math.round(mousePos.y), mousePos.x, mousePos.y - 20);
         }
     }
+
 }

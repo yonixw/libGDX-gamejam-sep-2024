@@ -18,7 +18,7 @@ public class Adventure {
                 .s("Fight with Warrior by").n()
                 .s("clicking the [GREEN]").s(15, 11).n()
                 .s("[]or ignore monster with").n()
-                .s("any other npc [GREEN]").s(15, 11).s("[]").n()
+                .s("clicking [RED]").s(7, 8).s("[]").n()
         );
 
         addLoot(AllItems.Instance.Attack_OneHand_Club_L1, Main.NPCsSTRG[Main.NPC.Warrior.ordinal()]);
@@ -28,7 +28,7 @@ public class Adventure {
 
     Monster _current = null;
 
-    public String xy(int row, int col) {
+    public static String xy(int row, int col) {
         return new String(Character.toChars(row * 16 + col));
     }
 
@@ -62,7 +62,7 @@ public class Adventure {
         String secret = "";
     }
 
-    public String colorType(AllItems.ItemType type) {
+    public static String colorType(AllItems.ItemType type) {
         String result = "";
         switch (type) {
             case Air:
@@ -86,7 +86,7 @@ public class Adventure {
         return result;
     }
 
-    public String fcc(Color c, String s) {
+    public static  String fcc(Color c, String s) {
         // fast color
         return "[#" + c + "]" + s + "[]";
     }
