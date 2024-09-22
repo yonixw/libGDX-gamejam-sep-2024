@@ -1,6 +1,7 @@
 package io.github.yonixw.AdventureInventory;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,7 +16,7 @@ public class OkButton extends Group {
     ImageButton btn;
     Runnable _cb;
 
-    public OkButton(Runnable callback) {
+    public OkButton(Runnable callback, TextureRegion buttonType) {
         TextureRegionDrawable up = new TextureRegionDrawable(Main.Instance.systemRegions[6][1]);
         TextureRegionDrawable down = new TextureRegionDrawable(Main.Instance.systemRegions[6][0]);
         _cb = callback;
@@ -38,7 +39,7 @@ public class OkButton extends Group {
         });
         addActor(btn);
 
-        okCheck = new Image(Main.Instance.systemRegions[6][6]);
+        okCheck = new Image(buttonType);
         okCheck.setTouchable(Touchable.disabled);
 
         addActor(okCheck);

@@ -132,9 +132,7 @@ public class Main extends InputAdapter implements ApplicationListener {
 
     private void CreateSellers(Group g) {
         // ========= WARRIOR
-        ItemGroupsTrade MyItemsWarrior = new ItemGroupsTrade(systemRegions, 4, 2, 9, lootRegions[2][5], () -> {
-            Gdx.app.log("CALLBACK", "111111111111111");
-        });
+        ItemGroupsTrade2Btn MyItemsWarrior = new ItemGroupsTrade2Btn(systemRegions, 4, 2, 9, lootRegions[2][5], null, null);
         MyItemsWarrior.setName("WarriorGroup");
         MyItemsWarrior.setPosition(0 + 0 * 75, 50);
         MyItemsWarrior.setScale(2f, 2f);
