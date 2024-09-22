@@ -34,7 +34,7 @@ public class AllItems {
             name = "Big health potion";
             row_col = new int[]{0, 0};
 
-            health = 5;
+            health = 15;
             money = 3;
         }
     };
@@ -43,7 +43,7 @@ public class AllItems {
             name = "Small health potion";
             row_col = new int[]{1, 0};
 
-            health = 2;
+            health = 10;
             money = 1;
         }
     };
@@ -52,7 +52,7 @@ public class AllItems {
             name = "Cup of health Potion";
             row_col = new int[]{2, 0};
 
-            health = 1;
+            health = 5;
             money = 0;
         }
     };

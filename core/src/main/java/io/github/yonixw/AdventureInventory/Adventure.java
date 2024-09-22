@@ -110,6 +110,28 @@ public class Adventure {
                 .n());
     }
 
+    public static <T> boolean contains(final T[] array, final T v) {
+        for (final T e : array) {
+            if (e == v || v != null && v.equals(e)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static <T> int indexOf(final T[] array, final T v) {
+        int i = 0;
+        for (final T e : array) {
+            if (e == v || v != null && v.equals(e)) {
+                return i;
+            }
+            i++;
+        }
+
+        return -1;
+    }
+
     public void AnimateFallingLoot(Loot l) {
 
     }
@@ -165,7 +187,7 @@ public class Adventure {
 
     public void WarriorAttack() {
         if (Main.Cursor.dragLoot != null) {
-            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to do it!").n());
+            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to act!").n());
             return;
         }
 
@@ -294,10 +316,61 @@ public class Adventure {
     //          Magicion
     // ==================================
     public void DoMagic() {
-        // food and potion
-        // potion and potion
-        // weapon and blob
-        // 
+        // weapon/def and blob
+
+        if (Main.Cursor.dragLoot != null) {
+            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to act!").n());
+            return;
+        }
+
+        ItemGroups Storage = Main.NPCsSTRG[Main.NPC.Magic.ordinal()];
+        int storageCapacity = Storage.whSize();
+
+        Loot money = null;
+        Loot weap = null;
+        Loot xdef = null;
+        Loot blobs = null;
+
+        ArrayList<Loot> loots = Storage.getLoots();
+
+        for (Loot l : loots) {
+            if (contains(AllItems.Instance.ALL_MONEY, l._myItem)) {
+                money = l;
+            } else if (contains(AllItems.Instance.ALL_ATTACK, l._myItem)) {
+                weap = l;
+            } else if (contains(AllItems.Instance.ALL_ARMORS, l._myItem)) {
+                xdef = l;
+            } else if (contains(AllItems.Instance.ALL_BLOBS, l._myItem)) {
+                blobs = l;
+            }
+        }
+
+        MessageChat.FastText ft = MessageChat.Instance.ft().h1("Magic Fusion").n().ul();
+
+        boolean ready;
+        if (money == null || money._myItem.money < 5 || (weap == null && xdef == null) || blobs == null) {
+            ft.
+                    li().s("You must provide:").n()
+                    .li().s("5$ gold ").n()
+                    .li().s("Item to fuse").n()
+                    .li().s("  Weapon/Armor").n()
+                    .li().s("Magic Blob").n();
+            MessageChat.Instance.addText(ft);
+            return;
+        }
+
+        Loot toEnchant = weap == null ? xdef : weap;
+        toEnchant.myVariation = AllItems.ItemType.values()[indexOf(AllItems.Instance.ALL_BLOBS, blobs._myItem)];
+
+        for (Loot l : loots) {
+            if (l != toEnchant) {
+                unattachLoot(l);
+            }
+        }
+
+        ft.li().s("Fused Item!").n().li().s("Type: ").s(colorType(toEnchant.myVariation)).n();
+
+        MessageChat.Instance.addText(ft);
 
     }
 
@@ -306,7 +379,7 @@ public class Adventure {
     // ==================================
     public void Sell() {
         if (Main.Cursor.dragLoot != null) {
-            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to do it!").n());
+            MessageChat.Instance.addText(MessageChat.Instance.ft().s("You must not carry\nany loot to act!").n());
             return;
         }
 

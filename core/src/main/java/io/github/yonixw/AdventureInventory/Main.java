@@ -169,7 +169,7 @@ public class Main extends InputAdapter implements ApplicationListener {
         MyItemsWarrior.Title = "Warrior";
         // ========= Magic
         ItemGroupsTrade MyItemsMagician = new ItemGroupsTrade(systemRegions, 4, 1, 9, lootRegions[2][6], () -> {
-            Gdx.app.log("CALLBACK", "2222222222222222");
+            Adventure.Instance.DoMagic();
         });
         MyItemsMagician.setName("MagicianGroup");
         MyItemsMagician.setPosition(0 + 1 * 75, 150);
